@@ -1,0 +1,34 @@
+Failed program is: 
+coref(A4, A3) :- event_subject(block, A0), event_object(block, A1), event_object(block, A2), mod(neg, vibration), property(strong, A4).
+coref(A6, A2) :- event_subject(realize, A0), event_subject(go, A6), event_object(go, A2), event_subject(decide, A6), event_object(take, A4), event_related(decide, A5), event_subject(block, A6), mod(neg, go).
+coref(A2, A4) :- event_subject(stay, A2), event_object(stay, A1), event_subject(go, A2), event_object(go, A3), property(walkway, A4), property(target_pronoun, A5).
+coref(A2, A1) :- event_subject(stay, A2), event_object(stay, A1), event_subject(go, A2), event_object(go, A3), property(walkway, A4), property(target_pronoun, A5).
+coref(A4, A0) :- event_subject(want, A0), event_object(want, A1), event_object(pass, A2), event_related(want, A3), event_subject(block, A4).
+coref(A4, A1) :- event_subject(block, A0), event_object(block, A1), event_object(block, A2), mod(neg, vibration), property(timid, A4).
+coref(A4, A2) :- event_subject(fit, A4), event_object(fit, A1), event_object(fit, A2), mod(neg, fit), property(full, A4).
+coref(A4, A1) :- event_subject(fit, A4), event_object(fit, A1), event_object(fit, A2), mod(neg, fit), property(huge, A4).
+coref(A6, A3) :- event_subject(want, A0), event_object(use, A1), event_related(want, A2), event_subject(block, A3), event_object(block, A4), event_subject(remove, A6), event_object(remove, A6), property(bottle, A7).
+coref(A3, A4) :- event_object(access, A0), event_object(access, A1), property(easy, A3), property(cramped, A3), property(bridge, A4).
+coref(A5, A1) :- event_subject(buy, A5), event_object(buy, A1), event_subject(live, A5), event_object(live, A3), mod(neg, live), property(target_pronoun, A5).
+coref(A7, A4) :- event_subject(want, A0), event_object(use, A1), event_related(want, A2), event_subject(block, A3), event_object(block, A4), event_subject(clean, A7), event_object(clean, A7), property(target_pronoun, A7).
+coref(A3, A1) :- event_object(access, A0), event_object(access, A1), property(easy, A3), property(spacious, A3), property(bridge, A4).
+coref(A5, A1) :- event_subject(use, A5), event_object(use, A1), event_object(cook, A2), event_related(use, A3), mod(neg, use), property(shallow, A5).
+coref(A5, A2) :- event_subject(use, A5), event_object(use, A1), event_object(cook, A2), event_related(use, A3), mod(neg, use), property(wide, A5).
+coref(A2, A4) :- event_subject(look, A0), event_object(look, A1), event_subject(block, A2), property(porthole, A3), property(window, A4).
+coref(A3, A1) :- event_subject(use, A3), event_object(use, A1), event_related(use, A2), property(easy, A3).
+coref(A4, A1) :- event_subject(comfort, A0), event_object(comfort, A1), event_subject(fall, A2), event_object(fall, A3), property(mad, A4).
+coref(A7, A4) :- event_subject(sell, A7), event_object(sell, A1), event_object(sell, A2), event_subject(go, A7), event_object(go, A4), event_subject(hear, A7), event_object(hear, A6), property(fantastic, A7).
+coref(A5, A1) :- event_subject(block, A0), event_object(block, A1), event_subject(write, A2), event_object(write, A3), event_object(write, A4), property(upset, A5).
+coref(A6, A5) :- event_subject(want, A6), event_object(rid, A1), event_related(want, A2), event_subject(take, A6), event_object(take, A6), event_object(take, A5), property(strong, A6), property(carpet, A7).
+coref(A6, A1) :- event_subject(want, A6), event_object(rid, A1), event_related(want, A2), event_subject(take, A6), event_object(take, A6), event_object(take, A5), property(weak, A6), property(carpet, A7).
+coref(A5, A3) :- event_subject(clean, A0), event_object(clean, A1), event_subject(use, A5), event_object(use, A3), mod(neg, clean), property(top, A5), property(challenge, A6).
+event_subject(block, path).
+event_subject(use, target_pronoun).
+event_object(use, target_pronoun).
+mod(neg, use).
+property(lake, lake).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 1, 'char_beg': 1, 'char_end': 136, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:1:1-136: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 1 and column 1-136'}

@@ -27,9 +27,9 @@ class Solver:
     corpus_filename: Path to training file in jsonl format.
     num_examples_per_input: Hyperparameter to determine the max number of training examples to use per input.
     """
-    def __init__(self, corpus_filename, num_examples_per_input=1, model_size=ModelSize.LARGE, debug=True, model_name='DirectTranslation'):
+    def __init__(self, corpus_filename, num_examples_per_input=1, model_size=ModelSize.LARGE, debug=False, model_name='DirectTranslation'):
         self.corpus = self._load_corpus(corpus_filename)
-        sentences = [example.get_sentence() for example in self.corpus]
+        sentences = [example.get_masked_sentence() for example in self.corpus]
         self.sentence_finder = SentenceFinder(sentences, k=num_examples_per_input)
         self.semantic_extractor = SemanticExtraction(model_size = model_size, token_replacement=token_replacement_map)
         self.debug = debug
@@ -54,12 +54,14 @@ class Solver:
             test_example[CANDIDATE_1],
             test_example[CANDIDATE_2],
             test_example[ANSWER])
-        similar_sentences = self.sentence_finder.get(test_example.get_sentence())
+        similar_sentences = self.sentence_finder.get(test_example.get_masked_sentence())
         examples = []
         if self.debug:
             print(f'Solving: {test_example.sentence}')
             for sentence_idx in similar_sentences:
                 print(f'Found similar sentence: {self.corpus[sentence_idx].sentence}')
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            print()
         for sentence_idx in similar_sentences:
             example = self.corpus[sentence_idx]
             predicates = self.semantic_extractor.extract_all(example.get_sentence())
@@ -78,8 +80,8 @@ class Solver:
 class WSCProblem:
     def __init__(self, sentence, candidate_1, candidate_2, answer):
         self.sentence = sentence
-        self.candidate_1 = candidate_1.lower()
-        self.candidate_2 = candidate_2.lower()
+        self.candidate_1 = candidate_1
+        self.candidate_2 = candidate_2
         self.answer = int(answer)
 
     def __repr__(self):
@@ -90,8 +92,13 @@ class WSCProblem:
         mask = re.compile('_')
         return mask.sub(PRONOUN_SYMBOL, self.sentence)
 
+    def get_masked_sentence(self):
+        mask = re.compile(f'{self.candidate_1}|{self.candidate_2}')
+        candidate_mask = 'candidate'
+        return mask.sub(candidate_mask, self.get_sentence())
+
     def get_correct_candidate(self):
-        return self.candidate_1 if self.answer == 1 else self.candidate_2
+        return self.candidate_1.lower() if self.answer == 1 else self.candidate_2.lower()
 
     def get_incorrect_candidate(self):
-        return self.candidate_2 if self.answer == 1 else self.candidate_1
+        return self.candidate_2.lower() if self.answer == 1 else self.candidate_1.lower()

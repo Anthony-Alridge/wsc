@@ -1,0 +1,35 @@
+Failed program is: 
+coref(A3, A0) :- event_subject(look, A0), event_object(look, A1), mod(neg, rachel), property(piercing, A3).
+coref(A2, A3) :- event_subject(feel, A0), event_object(feel, A1), property(guy, A2), property(brett, A3).
+coref(A2, A0) :- event_subject(feel, A0), event_object(feel, A1), property(guy, A2), property(brett, A3).
+coref(A3, A0) :- event_object(stress, A0), event_object(stress, A1), mod(neg, stress), property(unhappy, A3), property(everything, A4).
+coref(A4, A1) :- event_subject(fit, A4), event_object(fit, A1), event_object(fit, A2), mod(neg, fit), property(huge, A4).
+coref(A7, A2) :- event_subject(know, A7), event_subject(use, A7), event_object(use, A2), event_object(write, A3), event_related(use, A4), event_object(edit, A7), mod(neg, know), property(bothersome, A7).
+coref(A2, A3) :- event_subject(make, A4), event_object(make, A1), event_object(make, A2), property(annoyed, A3), property(guy, A4), property(laura, A5).
+coref(A2, A1) :- event_object(meet, A0), mod(neg, elena), property(gregarious, A2).
+coref(A4, A5) :- event_subject(give, A0), event_object(give, A1), event_object(give, A2), event_object(give, A5), property(heavy, A4), property(angela, A5).
+coref(A1, A4) :- event_subject(complement, A3), event_object(complement, A1), property(annoyed, A2), property(guy, A3), property(laura, A4).
+coref(A6, A5) :- event_subject(think, A0), event_subject(look, A3), mod(neg, be), property(beautiful, A3), property(unhappy, A6), property(agreement, A5), property(target_pronoun, A6).
+coref(A4, A1) :- event_subject(give, A0), event_object(give, A1), event_object(give, A2), event_subject(ask, A4), event_object(ask, A4), event_related(ask, A5), event_related(stop, A6).
+coref(A4, A0) :- event_subject(give, A0), event_object(give, A1), event_object(give, A2), event_object(give, A5), property(skinny, A4), property(angela, A5).
+coref(A5, A0) :- event_subject(admire, A0), event_object(admire, A1), event_subject(grow, A2), event_object(grow, A3), event_subject(ask, A5), property(target_pronoun, A5).
+coref(A5, A2) :- event_subject(admire, A0), event_object(admire, A1), event_subject(grow, A2), event_object(grow, A3), event_subject(show, A5), property(target_pronoun, A5).
+coref(A5, A0) :- event_subject(make, A0), event_object(make, A1), event_object(make, A2), event_object(make, A6), mod(neg, do), property(unhappy, A5), property(enemy, A6).
+coref(A4, A2) :- event_subject(look, A0), event_object(look, A1), mod(neg, rachel), mod(neg, have), property(piercing, A4).
+coref(A3, A2) :- event_object(go, A0), mod(neg, be), property(keen, A2), property(homosexual, A3).
+coref(A4, A1) :- event_object(crash, A0), event_object(see, A1), event_object(land, A2), event_object(land, A5), property(personality, A4), property(that, A5).
+coref(A2, A0) :- event_subject(prefer, A0), event_object(prefer, A1), event_subject(buy, A2), event_object(buy, A3), mod(neg, maria), property(color, A5).
+event_subject(see, target_pronoun).
+event_subject(yell, jim).
+event_object(yell, guy).
+event_subject(know, target_pronoun).
+event_subject(look, target_pronoun).
+mod(neg, know).
+property(unhappy, target_pronoun).
+property(uniform, uniform).
+property(beard, beard).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 8, 'char_beg': 1, 'char_end': 84, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:8:1-84: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 8 and column 1-84'}

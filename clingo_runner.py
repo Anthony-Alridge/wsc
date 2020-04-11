@@ -8,9 +8,9 @@ class AspRunner:
         self.models = []
         self.program_run = False
         self.errors = 0
-        if os.path.exists(self.debug_filename):
-            shutil.rmtree(self.debug_filename)
-        os.makedirs(self.debug_filename)
+        if not os.path.exists(self.debug_filename):
+            os.makedirs(self.debug_filename)
+            #shutil.rmtree(self.debug_filename)
 
     def run(self, program):
         try:

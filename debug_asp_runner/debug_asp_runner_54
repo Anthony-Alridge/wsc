@@ -1,0 +1,32 @@
+Failed program is: 
+coref(A3, A1) :- event_subject(bring, A0), event_object(bring, A1), event_object(bring, A2), event_subject(want, A3).
+coref(A4, A1) :- event_subject(like, A4), event_object(live, A1), event_related(like, A2), event_object(live, A3), property(fancy, A4).
+coref(A3, A0) :- event_subject(raise, A0), event_object(raise, A4), event_object(raise, A2), property(responsible, A3), property(fish, A4).
+coref(A4, A3) :- event_object(fish, A0), event_subject(catch, A1), event_object(catch, A2), mod(neg, katrina), property(lur, A4).
+coref(A4, A1) :- event_object(fish, A0), event_subject(catch, A1), event_object(catch, A2), mod(neg, katrina), property(lur, A4).
+coref(A4, A3) :- event_subject(like, A4), event_object(live, A1), event_related(like, A2), event_object(live, A3), property(drab, A4).
+coref(A3, A0) :- event_subject(bring, A0), event_object(bring, A1), event_object(bring, A2), event_subject(want, A3).
+coref(A4, A2) :- event_subject(buy, A0), event_object(buy, A3), event_object(make, A2), event_subject(buy, A3), property(one, A4).
+coref(A0, A1) :- property(narrow, A0), property(tank, A1).
+coref(A3, A2) :- event_subject(apply, A0), event_object(apply, A1), mod(neg, car), property(storage, A3).
+coref(A3, A1) :- event_subject(apply, A0), event_object(apply, A1), mod(neg, car), property(accident, A3).
+coref(A3, A1) :- event_subject(learn, A0), event_object(fish, A1), event_related(learn, A2), property(professional, A3), property(year, A4), property(experience, A5).
+coref(A9, A8) :- event_subject(go, A9), event_object(learn, A1), event_object(learn, A7), event_related(go, A3), event_subject(reproduce, A9), event_object(reproduce, A5), property(comfortable, A9), property(specie, A7), property(lab, A8), property(target_pronoun, A9).
+coref(A9, A5) :- event_subject(go, A9), event_object(learn, A1), event_object(learn, A7), event_related(go, A3), event_subject(reproduce, A9), event_object(reproduce, A5), property(comfortable, A9), property(specie, A7), property(lab, A8), property(target_pronoun, A9).
+coref(A5, A6) :- event_subject(like, A0), event_object(fish, A1), event_related(like, A4), event_subject(lose, A5), event_object(lose, A4), event_object(lose, A5), property(pond, A6).
+coref(A1, A2) :- property(healthy, A3), property(clean, A1), property(lake, A2), property(fish, A3), property(pond, A4).
+coref(A2, A1) :- property(deployment, A1), property(year, A1), property(military, A2).
+coref(A3, A0) :- event_subject(like, A0), event_object(breed, A1), event_related(like, A2), event_subject(find, A3), mod(neg, do).
+event_subject(study, scientist).
+event_object(study, specie).
+event_object(study, fish).
+event_subject(find, that).
+event_object(live, ocean).
+event_related(find, live).
+event_subject(begin, target_pronoun).
+property(fish, fish).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 4, 'char_beg': 1, 'char_end': 130, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:4:1-130: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 4 and column 1-130'}

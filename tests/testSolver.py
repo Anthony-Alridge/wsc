@@ -13,10 +13,34 @@ class TestBaseLineLogicProgram(unittest.TestCase):
             "answer": "1",
             }
         expected_answer = 'man'
-        corpus_filename = '/home/anthony/wsc/tests/files/lift_train.jsonl'
+        corpus_filename = '/home/anthony/wsc/tests/files/lift_train_direct.jsonl'
         num_examples_per_input = 1
-        solver = Solver(corpus_filename, num_examples_per_input, model_size=ModelSize.SMALL)
+        solver = Solver(corpus_filename, num_examples_per_input, debug=True, model_size=ModelSize.SMALL)
 
+        answer = solver.solve(test_example)
+
+        self.assertEqual(answer, expected_answer)
+
+class TestIlaspLogicProgram(unittest.TestCase):
+
+    def test_returns_correct_answer(self):
+        test_example = {
+            "qID": "0BRDXC18TQ292EDLMSYHDURL7DETUW-1",
+            "sentence": "The man couldn't lift his son because _ was so weak.",
+            "option1": "The man",
+            "option2": "The son",
+            "answer": "1",
+            }
+        expected_answer = 'man'
+        corpus_filename = '/home/anthony/wsc/tests/files/lift_train_ilasp.jsonl'
+        num_examples_per_input = 1
+
+        solver = Solver(
+            corpus_filename,
+            num_examples_per_input,
+            debug=True,
+            model_name='ILASPTranslation',
+            model_size=ModelSize.SMALL)
         answer = solver.solve(test_example)
 
         self.assertEqual(answer, expected_answer)

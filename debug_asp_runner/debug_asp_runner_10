@@ -1,0 +1,28 @@
+Failed program is: 
+coref(A5, A1) :- event_object(come, A0), event_object(come, A1), property(loud, A4), property(small, A3), property(music, A4), property(target_pronoun, A5).
+coref(A5, A1) :- event_object(come, A0), event_object(come, A1), property(soft, A4), property(big, A3), property(music, A4), property(target_pronoun, A5).
+coref(A5, A0) :- event_object(come, A0), event_object(come, A1), property(loud, A4), property(big, A3), property(music, A4), property(target_pronoun, A5).
+coref(A2, A4) :- event_subject(enter, A0), event_object(enter, A1), event_subject(arrive, A2), event_object(arrive, A3), property(able, A4).
+coref(A5, A0) :- event_object(come, A0), event_object(come, A1), property(loud, A4), property(big, A3), property(music, A4), property(target_pronoun, A5).
+coref(A2, A0) :- event_subject(enter, A0), event_object(enter, A1), event_subject(arrive, A2), event_object(arrive, A3), property(able, A4).
+coref(A3, A0) :- event_subject(get, A0), event_subject(cut, A1), event_object(cut, A2), event_subject(arrive, A3), event_object(arrive, A4).
+coref(A3, A2) :- event_subject(get, A0), event_subject(cut, A1), event_object(cut, A2), event_subject(arrive, A3), event_object(arrive, A4).
+coref(A6, A4) :- event_subject(know, A0), event_subject(get, A5), event_subject(buy, A6), event_object(buy, A3), event_object(buy, A4), property(cold, A5), property(close, A6), property(store, A7).
+coref(A2, A6) :- event_subject(know, A0), event_subject(get, A5), event_subject(buy, A2), event_object(buy, A3), event_object(buy, A4), property(cold, A5), property(store, A6).
+coref(A3, A2) :- event_subject(arrive, A0), event_object(arrive, A1), event_subject(arrive, A2), event_subject(stick, A3), event_object(stick, A4), mod(neg, stick).
+coref(A3, A0) :- event_subject(arrive, A0), event_object(arrive, A1), event_subject(arrive, A2), event_subject(stick, A3), event_object(stick, A4).
+coref(A3, A1) :- event_subject(go, A3), event_object(go, A1), mod(neg, cathedral), property(useful, A3), property(house, A4).
+coref(A4, A1) :- event_subject(locate, A4), property(area, A1), property(tornado, A2), property(amy, A3), property(target_pronoun, A4).
+coref(A4, A0) :- event_subject(arrive, A0), event_subject(pay, A4), event_object(pay, A4), property(cleaning, A4), property(jeffrey, A4).
+coref(A5, A3) :- event_subject(feel, A5), event_object(feel, A1), event_subject(gargle, A5), event_object(gargle, A3), event_object(put, A4), property(helpful, A5).
+coref(A3, A1) :- event_subject(smell, A3), event_object(smell, A1), event_object(compare, A2), property(well, A3), property(yard, A4), property(barn, A5).
+coref(A3, A2) :- event_subject(go, A3), event_object(go, A1), mod(neg, cathedral), property(useless, A3), property(house, A4).
+coref(A3, A1) :- event_subject(endure, A0), event_object(endure, A1), event_subject(push, A3), event_object(push, A3).
+event_subject(arrive, fireman).
+event_object(arrive, police).
+event_subject(come, target_pronoun).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 18, 'char_beg': 1, 'char_end': 127, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:18:1-127: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 18 and column 1-127'}

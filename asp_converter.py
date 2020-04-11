@@ -28,7 +28,11 @@ class DirectTranslationBuilder:
     def build(self, examples, test):
         rules = []
         for (example, predicates) in examples:
-            rules.append(self.to_asp_rule(predicates, self.pronoun_symbol, example.get_correct_candidate()))
+            try:
+                rules.append(self.to_asp_rule(predicates, self.pronoun_symbol, example.get_correct_candidate()))
+            except Exception as e:
+                print(f'Warning: Aborting conversion for {example.sentence}, which has predicates {predicates}: {e}')
+
         rules.append(self.to_asp_facts(test, self.pronoun_symbol))
         program = '\n'.join(rules)
         if self.debug:
@@ -53,7 +57,7 @@ class IlaspBuilder:
         body_bias = []
         positive_examples = []
         negative_examples = []
-        head_bias = '#modeh(coref(var(entity), var(entity))).'
+        head_bias = '#modeh(coref(target_pronoun, var(entity))).'
         for i, (example, predicates) in enumerate(examples):
             args = [arg for p in predicates for arg in p.args if not isinstance(p, Modifier)]
             arg_to_var = {arg: f'var(entity)' for arg in args}
@@ -62,7 +66,7 @@ class IlaspBuilder:
             ctx = ' '.join([p.grounded() for p in predicates]) + ' ' + ' '.join(entities)
             positive_examples.append(self.create_example(True, i, f'coref({self.pronoun_symbol}, {example.get_correct_candidate()})', ctx))
             negative_examples.append(self.create_example(False, i, f'coref({self.pronoun_symbol}, {example.get_incorrect_candidate()})', ctx))
-        program = '\n'.join([head_bias, '\n'.join(body_bias), '\n'.join(positive_examples), '\n'.join(negative_examples)])
+        program = '\n'.join([head_bias, '\n'.join(set(body_bias)), '\n'.join(positive_examples), '\n'.join(negative_examples)])
         if self.debug:
             with open('ilasp-translation.lp', 'w') as f:
                 f.write(program)
@@ -72,6 +76,7 @@ class IlaspBuilder:
         return '\n'.join([p.grounded() for p in predicates])
 
     def build(self, examples, test):
+        timeout = 1
         program = self.build_ilasp_program(examples)
         problem_facts = self.encode_problem(test)
         filename = 'tmp-ilasp-translation.lp'
@@ -79,7 +84,7 @@ class IlaspBuilder:
         with open(filename, 'w') as f:
             f.write(program)
         # run with subprocess, build entities again, add ilasp program and facts from test
-        output = subprocess.check_output(ilasp_command, shell=True, encoding='utf-8')
+        output = subprocess.check_output(ilasp_command, shell=True, timeout=timeout, encoding='utf-8')
         if self.debug:
             with open('ilasp-learnt-program.lp', 'w') as f:
                 f.write(output)

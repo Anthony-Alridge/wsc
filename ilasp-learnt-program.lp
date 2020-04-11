@@ -1,1 +1,1 @@
-coref(V1, V0) :- event_subject(lift, V0), property(weak, V1).
+coref(target_pronoun, V0) :- property(test, V0).

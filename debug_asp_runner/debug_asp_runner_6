@@ -1,0 +1,38 @@
+Failed program is: 
+coref(A5, A3) :- event_subject(lift, A0), event_object(lift, A1), event_subject(lift, A2), event_object(lift, A3), event_object(lift, A4), property(heavy, A5).
+coref(A5, A3) :- event_subject(purchase, A0), event_object(purchase, A1), event_subject(fit, A2), event_object(fit, A3), mod(neg, fit), property(wide, A5).
+coref(A3, A1) :- event_subject(lift, A0), event_object(lift, A1), mod(neg, lift), property(heavy, A3), property(cradle, A4).
+coref(A3, A1) :- event_subject(replace, A0), event_object(replace, A1), event_object(replace, A2), property(old, A3), property(hardwood, A4).
+coref(A4, A3) :- event_subject(lift, A0), event_object(lift, A1), event_object(lift, A2), mod(neg, chain), property(heavy, A4).
+coref(A6, A1) :- event_subject(try, A6), event_object(put, A1), event_object(put, A2), event_related(try, A3), event_subject(could, A6), mod(neg, be), property(heavy, A6), property(bicycle, A7).
+coref(A2, A1) :- event_object(lift, A0), property(strong, A1), property(unable, A2), property(christine, A3).
+coref(A3, A4) :- event_subject(replace, A0), event_object(replace, A1), event_object(replace, A2), property(trendy, A3), property(hardwood, A4).
+coref(A6, A1) :- event_subject(lift, A0), event_object(lift, A1), event_subject(decide, A6), event_object(lift, A3), event_related(decide, A5), mod(neg, lift), property(heavy, A6).
+coref(A6, A3) :- event_subject(lift, A0), event_object(lift, A1), event_subject(decide, A6), event_object(lift, A3), event_related(decide, A5), mod(neg, lift), property(light, A6).
+coref(A4, A3) :- event_subject(decide, A0), event_object(console, A4), event_related(decide, A2), property(afraid, A3), property(son, A4), property(dark, A5).
+coref(A5, A1) :- event_subject(lift, A0), event_object(lift, A1), event_subject(lift, A2), event_object(lift, A3), event_object(lift, A4), property(light, A5).
+coref(A4, A1) :- event_subject(want, A0), event_object(lift, A1), event_object(lift, A2), event_related(want, A3), property(big, A4).
+coref(A8, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(ask, A2), event_object(lift, A8), event_subject(help, A8), event_object(lift, A8), event_related(help, A6), mod(neg, have), property(strength, A8).
+coref(A2, A3) :- event_object(lift, A0), property(strong, A1), property(able, A2), property(christine, A3).
+coref(A4, A1) :- event_subject(lift, A4), event_object(lift, A1), event_object(lift, A2), property(strong, A3), property(thin, A4).
+coref(A5, A2) :- event_subject(purchase, A0), event_object(purchase, A1), event_subject(fit, A2), event_object(fit, A3), mod(neg, fit), property(narrow, A5).
+coref(A4, A1) :- event_subject(attach, A0), event_object(attach, A1), event_object(attach, A2), mod(neg, attach), property(heavy, A4).
+coref(A4, A3) :- event_subject(lift, A4), event_object(lift, A1), event_object(lift, A2), property(strong, A3), property(muscular, A4).
+coref(A4, A2) :- event_subject(want, A0), event_object(lift, A1), event_object(lift, A2), event_related(want, A3), property(slim, A4).
+coref(A2, A3) :- event_subject(work, A0), event_object(lift, A1), property(unable, A2), property(craig, A3).
+coref(A2, A0) :- event_subject(work, A0), event_object(lift, A1), property(able, A2), property(craig, A3).
+coref(A2, A0) :- event_subject(yell, A0), event_object(yell, A1), property(upset, A2), property(news, A3), property(addiction, A4).
+coref(A5, A2) :- event_object(lift, A0), event_related(help, A1), event_subject(help, A2), event_object(carry, A5), event_related(help, A4), event_subject(thank, A5), property(small, A6).
+coref(A2, A1) :- event_subject(console, A0), event_object(console, A1), property(upset, A2), property(news, A3), property(addiction, A4).
+coref(A6, A7) :- event_object(lift, A0), event_related(help, A1), event_subject(help, A2), event_object(carry, A6), event_related(help, A4), event_subject(thank, A6), event_object(thank, A6), property(small, A7).
+coref(A3, A1) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), property(colorful, A3), property(tape, A4).
+coref(A4, A1) :- event_subject(put, A4), event_object(put, A1), event_object(put, A2), mod(neg, put), property(heavy, A4).
+event_subject(lift, man).
+event_object(lift, son).
+mod(neg, lift).
+property(heavy, target_pronoun).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 5, 'char_beg': 1, 'char_end': 128, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:5:1-128: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 5 and column 1-128'}

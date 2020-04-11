@@ -109,20 +109,40 @@ class SemanticExtraction:
             lambda token: Modifier('neg', [self._normalise(token.head)])
             )
 
-    def extract_properties(self, tokens):
+    def match_branch(self, tokens, left_branch, right_branch, connecting_node=None):
         props = []
-        # Match [arg <---- (nsubj) --- XYZ ----- (acomp) -----> name]
-        acomp_arcs = self.match(
+        right_arcs = self.match(
             lambda token: token.dep,
-            [symbols.acomp],
+            [right_branch],
             tokens,
             lambda token: (token.head, token)
             )
-        for head, property_name in acomp_arcs:
-            arg = self.match_dep(head.children, [symbols.nsubj])
+        for head, property_name in right_arcs:
+            if connecting_node and head.pos != connecting_node:
+                continue
+            arg = self.match_dep(head.children, [left_branch])
             if len(arg) == 1:
-                props.append(Property(property_name.lemma_, [self._normalise(arg[0])]))
+                props.append(Property(self._normalise(property_name), [self._normalise(arg[0])]))
         return props
+
+    def extract_properties(self, tokens):
+        properties = []
+        properties += self.match_branch(tokens, symbols.nsubj, symbols.acomp)
+        properties += self.match_branch(tokens, symbols.nsubj, symbols.attr)
+        properties += self.match_branch(tokens, symbols.nsubj, symbols.dobj, connecting_node=symbols.AUX)
+        # Finding prepositional objects not linked to events.
+        for token in tokens:
+            if token.pos == symbols.VERB:
+                continue
+            objects = self.find_prep_objects(token)
+            for object in objects:
+                if token.pos == symbols.AUX:
+                    subj = self.match_dep(token.children, [symbols.nsubj])
+                    if len(subj) == 1:
+                        properties.append(Property(self._normalise(object), [self._normalise(subj[0])]))
+                else:
+                    properties.append(Property(self._normalise(object), [self._normalise(object)]))
+        return properties
 
     def extract_all(self, sentence):
         doc = self.model(sentence)

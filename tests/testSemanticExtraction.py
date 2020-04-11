@@ -121,3 +121,33 @@ class TestPropertyExtraction(unittest.TestCase):
 
         self.assertEqual(len(predicates), 1)
         self.assertEqual(predicates[0], mod)
+
+    def test_prep_object(self):
+        sentence = 'James is with his dog.'
+        p = Property('dog', ['James'])
+        semantic_extractor = SemanticExtraction(model_size=ModelSize.SMALL)
+
+        predicates = semantic_extractor.extract_all(sentence)
+
+        self.assertEqual(len(predicates), 1)
+        self.assertEqual(predicates[0], p)
+
+    def test_subject_and_object(self):
+        sentence = 'James has a dog.'
+        p = Property('dog', ['James'])
+        semantic_extractor = SemanticExtraction(model_size=ModelSize.SMALL)
+
+        predicates = semantic_extractor.extract_all(sentence)
+
+        self.assertEqual(len(predicates), 1)
+        self.assertEqual(predicates[0], p)
+
+    def test_attr(self):
+        sentence = 'James is a dog.'
+        p = Property('dog', ['James'])
+        semantic_extractor = SemanticExtraction(model_size=ModelSize.SMALL)
+
+        predicates = semantic_extractor.extract_all(sentence)
+
+        self.assertEqual(len(predicates), 1)
+        self.assertEqual(predicates[0], p)

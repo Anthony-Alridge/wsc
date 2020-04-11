@@ -29,6 +29,8 @@ def main(train_filename, test_filename, args):
                 predictions.append(2)
             else:
                 predictions.append(0)
+            if args.d and predictions[-1] == int(test_example[ANSWER]):
+                print('Correct')
     print_performance(predictions, target)
 
 def print_performance(predictions, target):

@@ -1,0 +1,34 @@
+Failed program is: 
+coref(A0, A3) :- event_subject(sit, A0), event_object(sit, A1), property(cool, A2), property(cat, A3).
+coref(A0, A2) :- event_subject(sit, A0), event_object(sit, A1), property(cool, A2), property(cat, A3).
+coref(A4, A3) :- event_object(walk, A0), property(cool, A4), property(time, A2), property(snow, A3), property(target_pronoun, A4).
+coref(A3, A1) :- event_subject(sleep, A0), event_object(sleep, A1), property(cool, A3), property(target_pronoun, A3).
+coref(A5, A2) :- event_subject(get, A5), event_object(get, A1), event_object(sit, A2), event_subject(sit, A5), event_object(sit, A4), event_subject(offer, A5), event_object(offer, A6).
+coref(A4, A2) :- event_subject(sleep, A0), event_object(sleep, A1), event_object(move, A2), event_subject(fit, A4), event_object(fit, A4), mod(neg, longer).
+coref(A2, A1) :- event_object(play, A0), event_subject(blow, A1), property(light, A2).
+coref(A2, A0) :- event_object(play, A0), event_subject(blow, A1), property(strong, A2).
+coref(A5, A4) :- event_subject(get, A5), event_object(get, A1), event_object(sit, A2), event_subject(sit, A5), event_object(sit, A4), event_subject(offer, A5), event_object(offer, A6).
+coref(A4, A1) :- event_subject(wear, A4), event_object(wear, A1), event_object(wear, A2), mod(neg, hoodie), property(light, A4).
+coref(A2, A4) :- event_object(work, A2), property(hard, A3), property(cool, A2), property(farm, A3), property(office, A4).
+coref(A3, A1) :- event_subject(lie, A0), event_object(lie, A1), property(cool, A3), property(target_pronoun, A3).
+coref(A2, A5) :- event_subject(stay, A4), event_object(stay, A1), event_subject(sit, A2), event_object(sit, A3), property(cool, A4), property(derrick, A5).
+coref(A2, A4) :- event_subject(stay, A4), event_object(stay, A1), event_subject(sit, A2), event_object(sit, A3), property(cool, A4), property(derrick, A5).
+coref(A3, A1) :- event_subject(comfort, A0), event_object(comfort, A1), event_object(comfort, A2), event_object(belong, A3), event_subject(run, A4), property(street, A5).
+coref(A4, A3) :- event_subject(wear, A4), event_object(wear, A1), event_object(wear, A2), mod(neg, hoodie), property(heavy, A4).
+coref(A3, A1) :- event_subject(hit, A0), event_object(hit, A1), mod(neg, randy), property(middle, A3), property(street, A4).
+coref(A3, A0) :- event_subject(punch, A0), event_object(punch, A1), event_object(punch, A2), event_object(belong, A3), event_subject(run, A4), property(street, A5).
+coref(A4, A1) :- event_subject(grow, A0), event_object(grow, A1), property(cool, A4), property(yard, A3), property(target_pronoun, A4).
+event_subject(sit, dog).
+event_object(sit, middle).
+event_subject(get, target_pronoun).
+event_object(get, while).
+event_object(move, spot).
+property(cool, target_pronoun).
+property(afternoon, target_pronoun).
+property(lawn, lawn).
+property(tree, tree).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 16, 'char_beg': 1, 'char_end': 129, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:16:1-129: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 16 and column 1-129'}

@@ -1,0 +1,31 @@
+Failed program is: 
+coref(A4, A3) :- event_subject(reveal, A0), event_object(reveal, A1), event_object(reveal, A5), event_object(cheat, A3), property(curious, A4), property(spouse, A5), property(situation, A6).
+coref(A0, A2) :- event_subject(buy, A0), event_object(buy, A1), property(winner, A2), property(lottery, A3).
+coref(A3, A2) :- event_object(prepare, A0), mod(neg, helmet), property(uniform, A2), property(target_pronoun, A3).
+coref(A1, A2) :- property(important, A0), property(person, A1), property(craig, A2).
+coref(A1, A3) :- event_object(prepare, A0), event_subject(stick, A1), event_object(stick, A2), mod(neg, helmet), property(uniform, A4).
+coref(A2, A4) :- event_subject(announce, A0), property(winner, A1), property(puncher, A2), property(fight, A3), property(christine, A4).
+coref(A3, A0) :- event_subject(reveal, A0), event_object(reveal, A1), property(powerful, A3), property(member, A3), property(freemasonry, A4).
+coref(A3, A1) :- event_subject(reveal, A0), event_object(reveal, A1), property(surprised, A3), property(member, A3), property(freemasonry, A4).
+coref(A1, A0) :- mod(neg, katrina), property(irresolute, A1), property(felicia, A2), property(contest, A3).
+coref(A2, A1) :- event_subject(announce, A0), property(winner, A1), property(puncher, A2), property(fight, A3), property(christine, A4).
+coref(A3, A2) :- event_subject(win, A0), event_object(win, A1), event_object(win, A2), property(sense, A3), property(rhythm, A4).
+coref(A2, A3) :- event_subject(win, A0), event_object(win, A1), property(large, A2), property(competition, A3).
+coref(A2, A0) :- event_subject(notice, A0), event_subject(attend, A1), property(short, A2).
+coref(A3, A2) :- event_subject(reveal, A0), event_object(reveal, A1), event_object(reveal, A2), event_subject(forget, A3), event_object(forget, A4).
+coref(A5, A3) :- event_subject(look, A0), event_object(look, A1), event_object(move, A2), event_subject(live, A3), event_object(live, A4), property(resident, A5).
+coref(A3, A0) :- event_subject(hit, A0), event_object(hit, A1), event_object(hit, A2), property(winner, A3).
+coref(A4, A0) :- event_subject(reveal, A0), event_object(reveal, A1), event_object(reveal, A5), event_object(cheat, A3), property(upset, A4), property(spouse, A5), property(situation, A6).
+coref(A2, A1) :- event_subject(win, A0), event_object(win, A1), property(large, A2), property(competition, A3).
+coref(A4, A0) :- event_subject(take, A0), event_object(take, A1), event_object(reveal, A2), event_object(reveal, A3), property(embarrassed, A4).
+coref(A2, A0) :- event_subject(kick, A0), event_object(kick, A1), event_subject(run, A2), event_object(run, A3), property(race, A4).
+event_subject(feel, frank).
+event_subject(reveal, bill).
+property(vindicated, frank).
+property(winner, target_pronoun).
+property(competition, competition).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 5, 'char_beg': 1, 'char_end': 136, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:5:1-136: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 5 and column 1-136'}

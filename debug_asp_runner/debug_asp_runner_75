@@ -1,0 +1,31 @@
+Failed program is: 
+coref(A7, A3) :- event_subject(want, A0), event_object(turn, A1), event_related(want, A5), event_subject(want, A3), event_object(turn, A7), event_related(want, A5), event_subject(feel, A7), property(hot, A7).
+coref(A7, A4) :- event_subject(use, A0), event_object(use, A1), event_object(water, A2), event_related(use, A3), event_subject(ask, A4), event_object(ask, A5), event_subject(take, A7), event_object(take, A7).
+coref(A4, A1) :- event_subject(try, A0), event_object(use, A1), event_related(try, A2), event_related(use, A3), property(far, A4).
+coref(A3, A0) :- event_subject(pass, A0), event_object(pass, A1), event_object(hold, A2), property(facility, A3), property(yard, A4).
+coref(A3, A4) :- event_subject(pass, A0), event_object(pass, A1), event_object(hold, A2), property(facility, A3), property(yard, A4).
+coref(A4, A0) :- event_subject(ask, A0), event_object(ask, A1), event_object(turn, A2), event_related(ask, A3), event_subject(try, A4), event_related(try, A5).
+coref(A5, A0) :- event_subject(agree, A0), event_object(wash, A1), event_related(agree, A2), event_object(clean, A3), event_related(agree, A4), property(turn, A5).
+coref(A4, A2) :- event_subject(want, A0), event_object(turn, A1), event_object(turn, A2), event_related(want, A3), property(new, A4).
+coref(A4, A1) :- event_subject(want, A0), event_object(turn, A1), event_object(turn, A2), event_related(want, A3), property(old, A4).
+coref(A3, A2) :- property(social, A0), property(friend, A3), property(eric, A2), property(result, A3).
+coref(A3, A0) :- event_subject(pass, A0), event_object(pass, A1), event_object(pass, A2), event_subject(drive, A3).
+coref(A3, A1) :- event_subject(pass, A0), event_object(pass, A1), event_object(pass, A2), event_subject(drive, A3).
+coref(A4, A0) :- event_subject(start, A0), event_subject(turn, A1), event_subject(find, A4), event_object(find, A3), event_subject(work, A4), mod(neg, turn).
+coref(A4, A1) :- event_subject(start, A0), event_subject(turn, A1), event_subject(find, A4), event_object(find, A3), event_subject(break, A4), mod(neg, turn).
+coref(A4, A0) :- event_subject(ask, A0), event_object(ask, A1), event_object(turn, A2), event_related(ask, A3), property(cold, A4).
+coref(A7, A0) :- event_subject(want, A0), event_object(turn, A1), event_related(want, A5), event_subject(want, A3), event_object(turn, A7), event_related(want, A5), event_subject(feel, A7), property(cold, A7).
+coref(A7, A0) :- event_subject(use, A0), event_object(use, A1), event_object(water, A2), event_related(use, A3), event_subject(ask, A4), event_object(ask, A5), event_subject(give, A7), event_object(give, A7).
+coref(A1, A4) :- event_object(pass, A0), event_subject(get, A1), event_object(get, A2), event_object(get, A3), mod(neg, felicia).
+coref(A2, A0) :- event_subject(know, A0), event_related(know, A1), event_subject(pass, A2), event_object(pass, A3), mod(neg, do).
+coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(turn, A2), event_object(turn, A3), event_related(ask, A4), property(rude, A5).
+coref(A3, A0) :- property(social, A0), property(friend, A3), property(eric, A2), property(result, A3).
+event_subject(pass, bill).
+event_object(pass, gameboy).
+event_object(pass, john).
+event_subject(turn, target_pronoun).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 18, 'char_beg': 1, 'char_end': 130, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:18:1-130: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 18 and column 1-130'}

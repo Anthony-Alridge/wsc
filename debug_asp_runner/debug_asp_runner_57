@@ -1,0 +1,33 @@
+Failed program is: 
+coref(A2, A0) :- event_subject(keep, A0), event_object(keep, A1), event_subject(rot, A2), mod(neg, keep).
+coref(A3, A1) :- event_subject(prefer, A0), event_object(hang, A1), event_related(prefer, A2), property(leftover, A3).
+coref(A3, A2) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), property(well, A3), property(reheat, A4).
+coref(A3, A2) :- event_subject(replace, A0), event_object(replace, A1), mod(neg, compressor), property(good, A3), property(refrigerator, A4).
+coref(A3, A1) :- event_subject(smell, A3), event_object(smell, A1), event_object(compare, A2), property(well, A3), property(yard, A4), property(barn, A5).
+coref(A2, A3) :- event_subject(use, A0), event_object(use, A1), property(expensive, A2), property(filling, A3), property(cake, A4).
+coref(A2, A0) :- event_subject(love, A0), event_object(love, A7), event_subject(take, A2), event_object(take, A3), event_object(take, A4), event_object(take, A7), mod(neg, do), property(cake, A7).
+coref(A3, A1) :- event_subject(replace, A0), event_object(replace, A1), mod(neg, compressor), property(wear, A3), property(refrigerator, A4).
+coref(A3, A0) :- event_subject(put, A0), event_object(put, A1), mod(neg, put), property(big, A3).
+coref(A3, A1) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), property(cold, A3), property(sun, A4).
+coref(A1, A4) :- event_object(compare, A0), event_subject(let, A1), event_subject(cover, A2), property(foil, A4), property(house, A4).
+coref(A1, A0) :- event_object(compare, A0), event_subject(let, A1), property(open, A2), property(foil, A4), property(house, A4).
+coref(A3, A4) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), property(sticky, A3), property(tape, A4).
+coref(A3, A1) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), property(colorful, A3), property(tape, A4).
+coref(A4, A1) :- event_subject(fit, A4), event_object(fit, A1), event_object(fit, A5), mod(neg, fit), property(tall, A4), property(shelf, A5).
+coref(A5, A1) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), event_object(leave, A3), event_object(leave, A4), property(cold, A5).
+coref(A4, A3) :- event_subject(throw, A0), event_object(throw, A1), event_object(throw, A2), event_object(keep, A3), property(fresh, A4).
+coref(A4, A5) :- event_subject(fit, A4), event_object(fit, A1), event_object(fit, A5), mod(neg, fit), property(short, A4), property(shelf, A5).
+coref(A5, A3) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), event_object(leave, A3), event_object(leave, A4), property(warm, A5).
+coref(A4, A3) :- event_subject(take, A4), event_object(take, A1), property(space, A4), property(kitchen, A3), property(target_pronoun, A4).
+coref(A3, A1) :- event_subject(keep, A0), event_object(keep, A1), event_object(keep, A2), event_subject(let, A3), mod(neg, meat).
+event_subject(put, target_pronoun).
+event_object(put, cake).
+property(lot, target_pronoun).
+property(refrigerator, refrigerator).
+property(target_pronoun, target_pronoun).
+property(leftover, leftover).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 4, 'char_beg': 1, 'char_end': 142, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:4:1-142: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 4 and column 1-142'}

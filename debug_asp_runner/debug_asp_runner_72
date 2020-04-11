@@ -1,0 +1,35 @@
+Failed program is: 
+coref(A3, A0) :- event_subject(pay, A0), event_object(draw, A1), event_related(pay, A2), event_subject(get, A3), event_object(get, A4), event_subject(do, A5).
+coref(A4, A0) :- event_subject(offer, A0), event_object(pay, A1), event_object(pay, A5), event_related(offer, A3), event_subject(pay, A4), property(justin, A5).
+coref(A6, A4) :- event_subject(learn, A0), event_subject(hit, A6), event_object(hit, A2), event_subject(hit, A6), event_object(hit, A4), event_object(hit, A6), event_object(check, A6), event_related(get, A7).
+coref(A3, A1) :- event_subject(go, A0), event_object(check, A1), mod(neg, be), property(available, A3).
+coref(A2, A0) :- event_subject(go, A0), event_object(check, A1), property(worried, A2).
+coref(A4, A2) :- event_subject(want, A0), event_object(buy, A1), event_object(buy, A2), event_related(want, A3), event_subject(receive, A4), event_object(receive, A5).
+coref(A4, A0) :- event_subject(want, A0), event_object(buy, A1), event_object(buy, A2), event_related(want, A3), event_subject(write, A4), event_object(write, A5).
+coref(A6, A8) :- event_subject(take, A6), event_object(take, A1), event_object(take, A2), event_object(check, A3), event_object(check, A8), event_related(take, A5), event_subject(work, A6), event_object(work, A7), property(jason, A8).
+coref(A5, A1) :- event_subject(take, A5), event_object(take, A1), event_object(check, A2), event_object(check, A7), event_related(take, A4), event_subject(work, A5), event_object(work, A6), property(jason, A7).
+coref(A5, A3) :- event_subject(give, A5), event_object(give, A1), event_object(give, A2), event_object(check, A3), event_subject(scamme, A5), event_subject(go, A5).
+coref(A8, A5) :- event_subject(stay, A0), event_object(stay, A1), event_subject(visit, A8), event_subject(say, A8), event_subject(stay, A8), event_object(stay, A5), event_subject(say, A8), event_object(say, A7), property(small, A8).
+coref(A1, A4) :- event_object(certify, A0), event_subject(pass, A1), event_object(pass, A2), property(unable, A3), property(kyle, A4).
+coref(A7, A6) :- event_subject(want, A0), event_object(rent, A1), event_related(want, A2), event_subject(say, A4), event_subject(say, A4), event_object(say, A5), property(well, A6), property(variety, A7).
+coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(send, A2), event_object(send, A3), event_related(ask, A4), event_subject(forget, A5).
+coref(A5, A0) :- event_subject(ask, A0), event_object(ask, A1), event_object(send, A2), event_object(send, A3), event_related(ask, A4), event_subject(forget, A5).
+coref(A7, A4) :- event_subject(want, A0), event_object(read, A1), event_object(read, A2), event_related(want, A6), event_subject(say, A4), event_subject(say, A7), event_related(say, A6), property(tired, A7).
+coref(A5, A0) :- event_subject(write, A0), event_object(write, A1), event_object(write, A2), event_object(write, A3), event_related(write, A4), event_object(make, A5).
+coref(A8, A1) :- event_subject(stay, A0), event_object(stay, A1), event_subject(visit, A8), event_subject(say, A8), event_subject(stay, A8), event_object(stay, A5), event_subject(say, A8), event_object(say, A7), property(big, A8).
+coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(ask, A2), event_subject(say, A5), property(person, A5), property(personality, A5), property(work, A6).
+coref(A12, A9) :- event_subject(hit, A0), event_object(hit, A1), event_subject(start, A12), event_object(gain, A3), event_related(start, A4), event_subject(say, A12), event_subject(say, A6), event_object(say, A7), event_subject(fight, A8), mod(neg, age), mod(neg, fight), property(diet, A12), property(factor, A12).
+coref(A3, A1) :- event_subject(allow, A0), event_subject(use, A1), event_object(use, A2), event_subject(want, A3), event_object(check, A4), event_related(want, A5).
+coref(A3, A0) :- event_subject(buy, A0), event_object(buy, A1), event_object(buy, A2), event_subject(write, A3), event_object(write, A4), event_object(cover, A5).
+event_subject(say, tom).
+event_object(say, check).
+event_object(say, ralph).
+event_object(check, ralph).
+event_subject(take, target_pronoun).
+event_object(take, target_pronoun).
+event_object(take, bishop).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 20, 'char_beg': 1, 'char_end': 316, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:20:1-316: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 20 and column 1-316'}

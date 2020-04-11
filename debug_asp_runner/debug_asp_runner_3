@@ -1,0 +1,27 @@
+Failed program is: 
+coref(A3, A0) :- event_subject(love, A0), event_object(drive, A4), event_related(love, A2), event_subject(buy, A3), event_object(buy, A4), mod(neg, do).
+coref(A3, A1) :- event_subject(take, A3), event_object(take, A1), event_object(take, A2), event_subject(love, A3), event_object(love, A6), mod(neg, poodle), property(truck, A6).
+coref(A5, A0) :- event_subject(manage, A0), event_object(stop, A1), event_related(manage, A2), event_subject(go, A5), mod(neg, do), property(slow, A5).
+coref(A4, A2) :- event_subject(try, A0), event_object(hit, A1), event_object(hit, A2), event_related(try, A3), property(slow, A4).
+coref(A4, A1) :- event_subject(fit, A0), event_object(fit, A1), event_object(fit, A2), mod(neg, fit), property(big, A4).
+coref(A1, A2) :- event_object(prepare, A0), event_subject(go, A1), mod(neg, salad).
+coref(A3, A2) :- event_subject(decide, A0), event_related(decide, A1), mod(neg, train), property(slow, A3), property(bus, A4).
+coref(A2, A1) :- event_object(buy, A3), event_object(seem, A1), event_subject(need, A2), event_object(need, A3), event_object(need, A6), mod(neg, seem), property(work, A6).
+coref(A3, A5) :- event_subject(take, A3), event_object(take, A1), event_object(take, A2), event_subject(hate, A3), event_object(hate, A6), mod(neg, poodle), property(truck, A6).
+coref(A2, A5) :- event_object(buy, A3), event_object(seem, A1), event_subject(need, A2), event_object(need, A3), event_object(need, A7), mod(neg, sarah), mod(neg, need), property(work, A7).
+coref(A3, A0) :- event_subject(buy, A0), event_object(buy, A1), event_object(buy, A2), property(job, A3).
+coref(A3, A2) :- event_subject(buy, A0), event_object(buy, A1), event_object(buy, A2), property(job, A3).
+coref(A2, A4) :- event_subject(say, A0), property(nice, A1), property(poor, A2), property(house, A3), property(kevin, A4).
+coref(A4, A2) :- event_subject(fit, A0), event_object(fit, A1), event_object(fit, A2), mod(neg, fit), property(small, A4).
+coref(A4, A0) :- event_subject(put, A0), event_object(put, A1), event_object(put, A2), event_subject(help, A4), event_subject(move, A4), event_object(move, A5).
+coref(A3, A2) :- event_subject(avoid, A0), event_object(avoid, A1), event_object(take, A2), property(strong, A3), property(weight, A4).
+coref(A4, A3) :- event_subject(take, A0), event_object(take, A1), event_object(put, A4), event_object(put, A3), property(full, A4), property(truck, A5).
+coref(A4, A1) :- event_subject(avoid, A0), event_object(avoid, A1), event_object(take, A2), property(weak, A4), property(weight, A4).
+coref(A4, A5) :- event_subject(take, A0), event_object(take, A1), event_object(put, A4), event_object(put, A3), property(empty, A4), property(truck, A5).
+event_subject(go, target_pronoun).
+property(slow, target_pronoun).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 6, 'char_beg': 1, 'char_end': 84, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:6:1-84: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 6 and column 1-84'}

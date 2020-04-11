@@ -1,0 +1,37 @@
+Failed program is: 
+coref(A3, A0) :- event_subject(face, A0), event_object(face, A1), event_subject(get, A3), property(warm, A3), property(angela, A4), property(kitchen, A5).
+coref(A4, A2) :- event_subject(decide, A0), event_object(grow, A1), event_object(grow, A2), event_related(decide, A3), event_subject(face, A4), event_object(face, A5).
+coref(A4, A2) :- event_object(face, A0), event_subject(visit, A1), event_object(visit, A2), property(dentist, A4), property(target_pronoun, A4).
+coref(A2, A1) :- event_object(take, A0), event_object(take, A1), property(liability, A2), property(battle, A3).
+coref(A3, A1) :- event_subject(decide, A0), event_object(clean, A1), event_related(decide, A2), event_subject(work, A3).
+coref(A4, A1) :- event_object(face, A0), event_subject(visit, A1), event_object(visit, A2), property(patient, A4), property(target_pronoun, A4).
+coref(A1, A3) :- property(anxiety, A0), property(childhood, A1), property(life, A2), property(kenneth, A3).
+coref(A1, A2) :- property(bad, A0), property(childhood, A1), property(adam, A2), property(steven, A3).
+coref(A0, A5) :- event_subject(love, A0), event_object(love, A1), event_subject(treat, A2), event_object(treat, A3), mod(neg, treat), property(childhood, A5).
+coref(A1, A3) :- property(bad, A0), property(childhood, A1), property(adam, A2), property(steven, A3).
+coref(A4, A2) :- event_subject(face, A0), event_object(face, A1), event_object(face, A2), event_subject(get, A4), property(warm, A4), property(kitchen, A5).
+coref(A0, A2) :- event_subject(hate, A0), event_object(hate, A1), event_subject(treat, A2), event_object(treat, A3), mod(neg, treat), property(childhood, A5).
+coref(A1, A0) :- property(anxiety, A0), property(childhood, A1), property(life, A2), property(kenneth, A3).
+coref(A2, A1) :- event_subject(buy, A2), event_object(buy, A1), event_subject(pay, A2), event_object(pay, A3), property(card, A4).
+coref(A2, A0) :- event_object(take, A0), event_object(take, A1), property(asset, A2), property(battle, A3).
+coref(A2, A1) :- event_object(perform, A0), event_object(suit, A1), property(imagination, A2), property(jessica, A3).
+coref(A1, A2) :- event_subject(grow, A0), event_subject(adjust, A1), property(childhood, A2).
+coref(A4, A2) :- event_subject(make, A4), event_object(make, A1), event_object(use, A2), mod(neg, pencil), property(vivid, A4), property(the, A5).
+coref(A4, A2) :- event_subject(give, A0), event_object(give, A1), event_object(keep, A2), event_subject(move, A4), event_subject(use, A4).
+coref(A3, A1) :- event_subject(stand, A0), event_object(stand, A1), event_subject(remind, A3), event_object(remind, A3), event_object(remind, A4), mod(neg, rebecca).
+coref(A5, A3) :- event_subject(make, A5), event_object(make, A1), event_object(use, A2), mod(neg, pencil), mod(neg, be), property(vivid, A5), property(the, A6).
+coref(A1, A3) :- event_subject(remind, A1), event_object(remind, A1), event_object(remind, A2), mod(neg, rebecca), property(unimportant, A4), property(laura, A5).
+coref(A4, A1) :- event_subject(give, A0), event_object(give, A1), event_object(keep, A2), event_subject(move, A4), event_subject(use, A4).
+coref(A4, A6) :- event_subject(like, A0), event_object(like, A1), event_object(like, A2), event_object(like, A6), property(awkward, A4), property(office, A5), property(craig, A6).
+event_subject(convey, biography).
+event_object(convey, sense).
+event_object(convey, difficulty).
+event_subject(face, target_pronoun).
+event_object(face, childhood).
+property(general, general).
+property(difficulty, difficulty).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 21, 'char_beg': 1, 'char_end': 161, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:21:1-161: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 21 and column 1-161'}

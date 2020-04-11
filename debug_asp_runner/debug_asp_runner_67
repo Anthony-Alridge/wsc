@@ -1,0 +1,26 @@
+Failed program is: 
+coref(A5, A1) :- event_subject(call, A0), event_object(call, A1), event_object(call, A2), mod(neg, get), mod(neg, be), property(computer, A5).
+coref(A3, A1) :- event_subject(fit, A0), event_object(fit, A1), mod(neg, fit), property(short, A3), property(door, A4).
+coref(A4, A0) :- event_subject(knock, A0), event_object(knock, A1), event_subject(deliver, A4), event_object(deliver, A3), property(disappoint, A4).
+coref(A3, A1) :- event_object(lose, A0), event_subject(stumble, A1), event_object(stumble, A2), event_subject(knock, A3), event_object(knock, A4).
+coref(A2, A0) :- event_subject(buy, A0), event_object(buy, A1), event_subject(show, A2), event_object(put, A3), event_related(show, A4).
+coref(A3, A0) :- event_subject(knock, A0), event_object(knock, A1), mod(neg, be), property(puzzle, A3), property(barn, A4).
+coref(A4, A1) :- event_subject(find, A0), event_object(find, A1), mod(neg, in), property(clear, A3), property(target_pronoun, A4).
+coref(A3, A1) :- event_subject(call, A0), event_object(call, A1), event_object(call, A2), property(busy, A3).
+coref(A2, A0) :- event_subject(call, A0), event_object(call, A1), property(frightened, A2).
+coref(A3, A2) :- event_subject(shut, A0), event_object(shut, A4), event_object(shut, A2), event_subject(like, A3), event_object(like, A4).
+coref(A3, A0) :- event_subject(shut, A0), event_object(shut, A4), event_object(shut, A2), event_subject(like, A3), event_subject(close, A4).
+coref(A1, A3) :- event_object(sell, A0), event_subject(work, A1), event_object(work, A2), property(comfortable, A3), property(door, A4).
+coref(A3, A0) :- event_subject(ask, A0), event_object(ask, A1), mod(neg, be), property(happy, A3), property(answer, A4).
+coref(A3, A0) :- event_subject(call, A0), event_object(call, A1), event_object(call, A2), property(sad, A3).
+coref(A1, A2) :- event_object(answer, A0), event_subject(retire, A1), mod(neg, lawrence).
+coref(A5, A0) :- event_subject(knock, A0), event_object(knock, A1), event_subject(want, A5), event_object(play, A3), event_related(want, A4), property(upset, A5).
+event_subject(knock, jane).
+event_object(knock, door).
+event_subject(answer, target_pronoun).
+mod(neg, answer).
+
+
+
+
+Clingo yield a non-handled error {'filename': '-', 'lineno': 15, 'char_beg': 1, 'char_end': 90, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:15:1-90: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 15 and column 1-90'}
