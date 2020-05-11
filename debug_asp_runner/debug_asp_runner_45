@@ -1,21 +1,19 @@
 Failed program is: 
-coref(A4, A1) :- event_subject(teach, A0), event_object(teach, A1), event_object(crochet, A2), event_related(teach, A3), event_subject(make, A4), event_object(make, A5), event_object(make, A7), property(daughter, A7).
+coref(A4, A1) :- event_subject(teach, A0), event_object(teach, A1), event_object(crochet, A2), event_related(teach, A3), event_subject(make, A4), event_object(make, A7), event_object(make, A6), property(daughter, A7).
 coref(A2, A1) :- event_subject(tell, A0), event_object(tell, A1), event_subject(roll, A2), property(bed, A3), property(sleep, A4).
 coref(A1, A0) :- event_subject(tell, A0), event_subject(roll, A1), property(bed, A2), property(sleep, A3).
 coref(A5, A1) :- event_subject(want, A0), event_object(adopt, A1), event_related(want, A2), event_object(take, A5), event_object(take, A4), property(daughter, A5).
 coref(A6, A0) :- event_subject(chase, A0), event_object(chase, A1), event_subject(sleep, A6), event_object(sleep, A3), event_subject(replace, A6), event_object(replace, A6), property(comfortable, A6), property(bed, A7).
 coref(A2, A3) :- event_subject(stay, A0), event_object(stay, A1), event_subject(go, A2), mod(neg, derrick).
 coref(A6, A1) :- event_subject(chase, A0), event_object(chase, A1), event_subject(sleep, A6), event_object(sleep, A3), event_subject(replace, A6), event_object(replace, A6), property(uncomfortable, A6), property(bed, A7).
-coref(A1, A3) :- event_subject(yell, A1), event_object(yell, A1), property(embarrassed, A4), property(tanya, A3), property(daughter, A4).
 coref(A5, A2) :- event_subject(buy, A5), event_object(buy, A1), event_object(buy, A2), event_object(buy, A5), event_object(buy, A4), property(sweet, A5).
 coref(A5, A4) :- event_subject(buy, A5), event_object(buy, A1), event_object(buy, A2), event_object(buy, A5), event_object(buy, A4), property(sticky, A5).
 coref(A3, A0) :- event_subject(read, A0), event_object(read, A1), event_object(read, A2), event_object(tuck, A3).
 coref(A6, A1) :- event_subject(purchase, A0), event_object(purchase, A1), event_object(purchase, A2), event_object(buy, A3), event_related(need, A4), event_subject(outgrow, A5), event_object(outgrow, A6), mod(neg, need).
-coref(A2, A0) :- event_subject(make, A0), event_object(make, A3), event_subject(pass, A2), event_subject(read, A3), event_object(read, A5), property(will, A5).
+coref(A2, A0) :- event_subject(make, A0), event_object(make, A3), event_subject(pass, A2), event_subject(read, A3), event_object(read, A4), property(will, A5).
 coref(A2, A0) :- event_subject(stay, A0), event_object(stay, A1), event_subject(go, A2), mod(neg, derrick).
-coref(A2, A3) :- event_subject(need, A0), event_object(need, A1), property(short, A2), property(laura, A3).
 coref(A2, A0) :- event_subject(need, A0), event_object(need, A1), property(tall, A2), property(laura, A3).
-coref(A3, A0) :- event_subject(learn, A0), event_object(learn, A1), event_object(crochet, A2), event_subject(make, A3), event_object(make, A4), event_object(make, A6), property(daughter, A6).
+coref(A3, A0) :- event_subject(learn, A0), event_object(learn, A1), event_object(crochet, A2), event_subject(make, A3), event_object(make, A6), event_object(make, A5), property(daughter, A6).
 coref(A5, A1) :- event_subject(replace, A0), event_object(replace, A1), event_object(replace, A4), event_subject(want, A5), event_object(want, A4), property(old, A5).
 coref(A4, A0) :- event_subject(talk, A0), event_object(talk, A1), event_subject(find, A2), event_object(sleep, A3), event_subject(go, A4), event_object(see, A5).
 coref(A5, A1) :- event_subject(stay, A0), event_subject(go, A1), event_object(go, A2), property(time, A5), property(medicine, A5), property(aid, A5).

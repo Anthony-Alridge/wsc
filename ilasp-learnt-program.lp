@@ -1,1 +1,1 @@
-coref(target_pronoun, V0) :- property(test, V0).
+event_subject(V0, V1) :- event(go, V0), property(good, V1).

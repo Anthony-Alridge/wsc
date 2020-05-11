@@ -1,0 +1,62 @@
+The city councilmen refused the demonstrators a permit because _ feared violence.
+MAY NOT HAVE SUITABLE DIRECT KNOWLEDGE AVAILABLE.
+
+
+Joan made sure to thank Susan for all the help _ had recieved.
+Betty bought a container for Lindsey for her birthday because _ wanted to thank her.
+Jennifer was taking out Sarah out to a restaurant for _ wanted to thank the other for helping them in a difficult time.
+Laura gave birth to twins and Tanya delivered them, so _ was sure to thank them when it was done.
+Tanya loved the washer that Mary bought for her, so _ wrote a thank you note.
+Because Monica gave a gift to Carrie, _ wrote a thank you letter for the gift.
+Rebecca showed Jennifer how to heal a fever by herself.  _ sure was grateful for the help.
+
+NO DIRECT SENTENCE BETWEEN INPUT AND KNOWLEDGE.
+INDIRECT KNOWLEDGE TO BE LINKED:
+ABSTRACTION FOR SPECIFIC FORMS OF HELP, TO CONCEPT OF HELP:
+  --- BETTY BOUGHT A CONTAINER FOR LINDSEY MEANS LINDSEY RECEIVED HELP
+  --- ETC...
+TO SOLVE THIS WE NEED TO ASSUME THAT ALL SITUATIONS IN WHICH ONE GIVES THANKS
+ARE RELATED. USING THIS WE CAN GROUP SCENARIOS IN A COMMON ABSTRACTION. DURING
+LEARNING IT WOULD BE NECESSARY TO ALSO MAKE USE OF THE INPUT SENTENCE IN THIS
+CASE SO THAT IT IS INCLUDED IN THE GROUPING SOMEHOW...
+
+
+Paul tried to call George on the phone, but _ wasn't successful.
+
+NO DIRECT SENTENCE. COULD BE SOLVED WITH THE IDEA THAT SOMEONE WHO IS
+SUBJECT OF TRY MAY OR MAY NOT BE SUCCESSFUL. CAN BE EXTENEDED TO SOMEONE
+WHO DOES ANY ACTION MAY BE SUCCESSFUL OR UNSUCESSFUL.
+
+
+The delivery truck zoomed by the school bus because _ was going so fast.
+
+NO DIRECT SENTENCE, BUT COULD BE SOLVED JUST BY KNOWING THAT SOMETHING
+ZOOMING IS GOING FAST. MAYBE CONCEPTNRT.
+
+Frank felt vindicated when his longtime rival Bill revealed that _ was the winner of the competition.
+Frank felt vindicated when his longtime rival Bill revealed that _ was the winner of the competition.
+NO DIRECT SENTENCE. NEED TO UNDERSTAND WHAT VINDICATED IS.
+
+
+the man couldnt.....
+DIRECT SENTENCE TO SOLVE
+
+
+The large ball crashed right through the table because _ was made of steel
+
+NO DIRECT SENTENCE.
+The car crashed into a tree but only the tree was damaged, because the _ is made from weaker material
+THIS ONE COULD HELP. LEARN THAT CRASH THROUGH == DAMAGED... THE WEAKER ONE GETS DAMAGED
+
+
+
+John couldn't see the stage with Billy in front of him because _ is so tall.
+NO DIRECT SENTENCE
+
+Tom threw his schoolbag down to Ray after _ reached the top of the stairs.
+NO DIRECT SENTENCE. SENTENCE BELOW SOMEWHAT CAPTURES THAT TO GO DOWN YOU MUST BE AT TOP.
+James slid down from the top of the roof to the fence because the _ is shorter.
+
+
+Although they ran at about the same speed, Sue beat Sally because _ had such a bad start
+NO DIRECT SENTNECE

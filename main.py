@@ -20,17 +20,20 @@ def main(train_filename, test_filename, args):
     with jsonlines.open(test_filename) as reader:
         for test_example in reader:
             target.append(int(test_example[ANSWER]))
-            answer = solver.solve(test_example)
+            answer, additional_info = solver.solve(test_example)
+            print(answer)
             if answer is None:
                 predictions.append(0)
-            elif answer in test_example[CANDIDATE_1]:
+            elif answer in test_example[CANDIDATE_1].lower():
                 predictions.append(1)
-            elif answer in test_example[CANDIDATE_2]:
+            elif answer in test_example[CANDIDATE_2].lower():
                 predictions.append(2)
             else:
                 predictions.append(0)
             if args.d and predictions[-1] == int(test_example[ANSWER]):
                 print('Correct')
+                with jsonlines.open('correct_answers.jsonl', 'a') as f:
+                    f.write(additional_info)
     print_performance(predictions, target)
 
 def print_performance(predictions, target):

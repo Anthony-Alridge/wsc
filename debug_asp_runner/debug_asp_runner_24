@@ -2,7 +2,7 @@ Failed program is:
 coref(A3, A0) :- event_subject(work, A0), event_object(work, A1), mod(neg, work), property(weak, A3).
 coref(A1, A4) :- event_object(do, A2), event_subject(go, A1), event_object(go, A2), property(fast, A3), property(slow, A4).
 coref(A0, A3) :- event_subject(play, A0), event_object(play, A1), event_related(play, A2), property(lot, A3), property(time, A4).
-coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(ask, A2), event_object(take, A3), event_object(take, A6), property(supervisor, A5), property(work, A6).
+coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(ask, A2), event_object(take, A3), event_object(take, A4), property(supervisor, A5), property(work, A6).
 coref(A5, A0) :- event_subject(offer, A0), event_object(work, A1), event_related(offer, A2), event_object(clean, A3), event_object(clean, A4), property(time, A5).
 coref(A4, A2) :- event_subject(want, A0), event_object(spend, A5), event_object(spend, A2), event_related(want, A3), event_subject(go, A4), event_object(go, A5).
 coref(A3, A1) :- event_object(leave, A0), event_object(leave, A1), event_subject(take, A3), event_object(take, A3), event_object(take, A4), property(morning, A5).
@@ -12,11 +12,9 @@ coref(A2, A5) :- event_object(catch, A0), event_object(catch, A1), event_subject
 coref(A4, A1) :- event_subject(take, A4), event_object(take, A1), event_subject(take, A4), event_object(take, A3), property(time, A4).
 coref(A8, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(ask, A2), event_related(ask, A3), event_subject(cover, A8), event_object(cover, A5), event_object(cover, A6), event_subject(owe, A8), event_object(owe, A8), event_object(owe, A9).
 coref(A7, A0) :- event_subject(ask, A0), event_object(ask, A1), event_object(ask, A2), event_related(ask, A3), event_subject(cover, A7), event_object(cover, A5), event_object(cover, A6), property(emergency, A7).
-coref(A4, A3) :- event_subject(spend, A0), event_object(spend, A1), event_object(spend, A2), property(ryan, A3), property(work, A4).
 coref(A3, A1) :- event_subject(work, A0), event_object(work, A1), mod(neg, work), property(strong, A3).
 coref(A1, A4) :- event_object(do, A2), event_subject(get, A1), event_object(go, A2), event_related(get, A3), property(fast, A4), property(slow, A5).
 coref(A4, A0) :- event_subject(love, A0), event_subject(want, A1), event_object(work, A2), event_related(want, A3), event_subject(work, A4), event_object(work, A5).
-coref(A4, A6) :- event_subject(prefer, A4), event_object(travel, A1), event_related(prefer, A2), event_object(leave, A3), event_object(leave, A4), event_related(prefer, A5), property(bus, A6).
 coref(A5, A0) :- event_subject(ask, A0), event_object(ask, A1), event_object(ask, A2), event_object(take, A3), event_object(take, A4), event_subject(go, A5), event_object(go, A6).
 coref(A4, A1) :- event_subject(love, A0), event_subject(want, A1), event_object(work, A2), event_related(want, A3), event_subject(work, A4), event_object(work, A5).
 coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_subject(help, A5), event_object(clean, A3), event_related(help, A4), event_subject(care, A5), event_subject(do, A6), event_object(do, A7), mod(neg, care).

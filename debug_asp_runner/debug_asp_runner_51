@@ -1,13 +1,12 @@
 Failed program is: 
-coref(A5, A6) :- event_subject(clean, A5), event_object(clean, A1), event_object(clean, A7), event_subject(figure, A5), event_object(figure, A4), event_subject(hide, A5), mod(neg, back), property(cabinet, A7).
-coref(A6, A1) :- event_subject(clean, A6), event_object(clean, A1), event_object(clean, A7), event_subject(figure, A6), event_object(figure, A4), mod(neg, back), property(noticeable, A6), property(cabinet, A7).
+coref(A5, A6) :- event_subject(clean, A5), event_object(clean, A7), event_object(clean, A2), event_subject(figure, A5), event_object(figure, A4), event_subject(hide, A5), mod(neg, back), property(cabinet, A7).
+coref(A6, A7) :- event_subject(clean, A6), event_object(clean, A7), event_object(clean, A2), event_subject(figure, A6), event_object(figure, A4), mod(neg, back), property(noticeable, A6), property(cabinet, A7).
 coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_subject(change, A5), event_object(change, A3), event_subject(forget, A5), event_object(forget, A5).
-coref(A5, A2) :- event_subject(change, A0), event_object(change, A1), event_object(change, A2), event_subject(remember, A5), property(free, A5), property(target_pronoun, A5).
+coref(A4, A2) :- event_subject(change, A0), event_object(change, A1), event_object(change, A2), event_subject(remember, A4), property(free, A4), property(target_pronoun, A5).
 coref(A3, A1) :- event_subject(bring, A0), event_object(bring, A1), event_object(bring, A2), event_subject(want, A3).
 coref(A5, A0) :- event_subject(ask, A0), event_object(ask, A1), event_subject(change, A5), event_object(change, A3), event_subject(forget, A5), event_object(forget, A5).
-coref(A5, A0) :- event_object(shine, A0), property(terrible, A3), property(prepared, A5), property(play, A3), property(performance, A4), property(target_pronoun, A5).
+coref(A2, A0) :- event_object(shine, A0), property(terrible, A3), property(prepared, A2), property(play, A3), property(performance, A4), property(target_pronoun, A5).
 coref(A5, A1) :- event_subject(like, A5), event_object(watch, A1), event_related(like, A2), event_subject(find, A5), mod(neg, box), property(cool, A5).
-coref(A5, A3) :- event_subject(care, A5), mod(neg, care), property(friend, A5), property(school, A3), property(church, A5), property(target_pronoun, A5).
 coref(A3, A0) :- event_subject(bring, A0), event_object(bring, A1), event_object(bring, A2), event_subject(want, A3).
 coref(A5, A2) :- event_subject(know, A5), event_subject(eat, A5), event_object(eat, A2), event_subject(eat, A5), event_object(eat, A4), property(healthy, A5).
 coref(A5, A1) :- event_subject(find, A5), event_object(drive, A1), event_related(find, A2), event_subject(need, A5), event_related(need, A4), property(easy, A5).

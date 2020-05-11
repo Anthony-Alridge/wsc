@@ -15,7 +15,7 @@ class TestBaseLineLogicProgram(unittest.TestCase):
         expected_answer = 'man'
         corpus_filename = '/home/anthony/wsc/tests/files/lift_train_direct.jsonl'
         num_examples_per_input = 1
-        solver = Solver(corpus_filename, num_examples_per_input, debug=True, model_size=ModelSize.SMALL)
+        solver = Solver(corpus_filename, num_examples_per_input, debug=False, model_size=ModelSize.SMALL)
 
         answer = solver.solve(test_example)
 
@@ -38,7 +38,7 @@ class TestIlaspLogicProgram(unittest.TestCase):
         solver = Solver(
             corpus_filename,
             num_examples_per_input,
-            debug=True,
+            debug=False,
             model_name='ILASPTranslation',
             model_size=ModelSize.SMALL)
         answer = solver.solve(test_example)

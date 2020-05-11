@@ -67,7 +67,7 @@ class TestIlaspConverter(unittest.TestCase):
             'event_object(lift, son).',
             'mod(neg, lift).',
             'property(weak, target_pronoun).',
-            'coref(V1, V0) :- event_subject(lift, V0), property(weak, V1).'
+            'coref(V0, V1) :- property(weak, V0), event_subject(lift, V1).'
         ])
 
         program = program_builder.build([(problem, predicates)], test_predicates).strip()

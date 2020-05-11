@@ -1,37 +1,30 @@
 Failed program is: 
-coref(A2, A3) :- event_subject(break, A0), mod(neg, be), property(weak, A2), property(comb, A3).
-coref(A4, A1) :- event_subject(like, A0), event_object(read, A1), event_related(like, A3), event_related(like, A3), property(quick, A4).
-coref(A3, A0) :- event_object(place, A0), mod(neg, be), property(comfortable, A2), property(strong, A3), property(vase, A4), property(seat, A5).
-coref(A3, A2) :- event_object(claim, A0), property(dependent, A1), property(betty, A2), property(age, A3), property(18, A4).
-coref(A3, A1) :- event_object(claim, A0), property(dependent, A1), property(betty, A2), property(age, A3), property(18, A4).
-coref(A5, A1) :- event_subject(use, A0), event_object(use, A1), event_object(find, A2), event_related(use, A3), property(quick, A5), property(target_pronoun, A5).
-coref(A2, A6) :- event_subject(get, A0), event_object(get, A1), event_subject(go, A2), event_object(go, A3), event_object(take, A4), mod(neg, go), property(logan, A6).
-coref(A0, A2) :- property(cushion, A0), property(seat, A1), property(chair, A2).
-coref(A0, A1) :- property(cushioned, A0), property(seat, A1), property(chair, A2).
-coref(A3, A1) :- event_subject(go, A0), event_object(go, A1), event_object(go, A2), property(quick, A3).
-coref(A2, A0) :- event_subject(break, A0), mod(neg, be), property(strong, A2), property(comb, A3).
-coref(A3, A2) :- event_subject(cook, A0), event_object(cook, A1), event_object(cook, A2), property(quick, A3).
-coref(A3, A1) :- event_object(drive, A0), event_subject(rear, A1), event_object(end, A2), property(remorseful, A3).
-coref(A1, A0) :- property(painful, A0), property(quicker, A1), property(tattoo, A2).
-coref(A5, A0) :- event_subject(like, A0), event_object(like, A4), event_object(like, A8), event_subject(like, A3), event_object(like, A4), event_subject(want, A5), event_object(want, A6), event_object(want, A9), property(airplane, A8), property(view, A9).
-coref(A5, A3) :- event_subject(like, A0), event_object(like, A4), event_object(like, A8), event_subject(like, A3), event_object(like, A4), event_subject(want, A5), event_object(want, A6), event_object(want, A9), property(airplane, A8), property(bathroom, A9).
-coref(A3, A4) :- event_object(place, A0), mod(neg, be), property(comfortable, A2), property(fragile, A3), property(vase, A4), property(seat, A5).
-coref(A3, A1) :- event_object(take, A0), mod(neg, bus), property(quick, A3), property(stop, A3), property(way, A4).
-coref(A4, A0) :- event_subject(tell, A0), event_object(tell, A1), event_object(tell, A2), event_subject(claim, A4), property(excited, A4).
-coref(A5, A2) :- event_subject(crawl, A0), event_object(crawl, A1), event_subject(get, A2), event_object(move, A5), event_subject(get, A5), property(safe, A5), property(car, A8), property(seat, A7), property(car, A8).
-coref(A4, A0) :- event_subject(lead, A0), event_object(lead, A1), event_object(lead, A2), event_object(work, A3), property(hostess, A4).
-coref(A3, A1) :- event_subject(lead, A0), event_object(lead, A1), event_object(lead, A2), property(dining, A3), property(restaurant, A4).
-coref(A3, A4) :- event_subject(teach, A0), event_object(teach, A1), event_subject(think, A3), property(quick, A3), property(derrick, A4).
-coref(A5, A3) :- event_subject(wear, A0), event_object(wear, A4), event_object(wear, A6), event_subject(wear, A3), event_object(wear, A4), event_subject(hurt, A5), event_subject(hit, A6), mod(neg, hurt).
-coref(A3, A0) :- event_subject(teach, A0), event_object(teach, A1), event_subject(think, A3), property(quick, A3), property(derrick, A4).
-coref(A4, A0) :- event_subject(stand, A0), event_object(stand, A1), event_object(offer, A2), event_object(offer, A3), event_subject(sit, A4).
-coref(A2, A1) :- event_object(move, A3), event_object(move, A1), event_subject(sit, A2), event_object(sit, A3).
-event_subject(take, dan).
-event_object(take, seat).
-event_subject(claim, bill).
-event_object(claim, front).
+coref(A3, A0) :- event_subject(know, A0), event_object(plant, A1), event_related(know, A2), event_subject(stay, A3), event_object(stay, A4), property(carrie, A5).
+coref(A6, A1) :- event_subject(drop, A0), event_object(drop, A1), event_object(drop, A2), event_subject(get, A6), event_object(get, A7), event_object(get, A5), property(fragile, A6), property(floor, A7).
+coref(A3, A1) :- event_subject(go, A0), event_object(see, A1), event_object(see, A6), event_subject(see, A3), event_object(see, A4), mod(neg, see), property(arthritis, A6).
+coref(A0, A2) :- event_subject(visualize, A0), event_object(visualize, A1), property(calm, A2), property(plane, A3), property(jason, A4).
+coref(A1, A3) :- event_object(clean, A0), event_subject(make, A1), event_object(use, A2), mod(neg, leslie), mod(neg, use).
+coref(A4, A0) :- event_subject(climb, A0), event_object(climb, A1), event_object(see, A4), mod(neg, see), property(sad, A4).
+coref(A6, A5) :- event_subject(drop, A0), event_object(drop, A1), event_object(drop, A2), event_subject(get, A6), event_object(get, A7), event_object(get, A5), property(hard, A6), property(floor, A7).
+coref(A4, A2) :- event_subject(replace, A0), event_object(replace, A1), event_object(replace, A2), event_subject(see, A4), property(clean, A4).
+coref(A4, A1) :- event_subject(replace, A0), event_object(replace, A1), event_object(replace, A2), event_subject(see, A4), property(full, A4).
+coref(A3, A0) :- event_subject(pass, A0), event_object(pass, A1), event_object(hold, A2), property(facility, A3), property(yard, A4).
+coref(A4, A0) :- event_subject(slip, A0), event_subject(get, A4), event_object(get, A6), event_object(get, A3), property(fragile, A4), property(hand, A5), property(floor, A6).
+coref(A4, A3) :- event_subject(slip, A0), event_subject(get, A4), event_object(get, A6), event_object(get, A3), property(hard, A4), property(hand, A5), property(floor, A6).
+coref(A0, A3) :- event_subject(use, A0), event_object(use, A6), event_object(use, A2), property(farmer, A3), property(crop, A4), property(randy, A5), property(fertilizer, A6).
+coref(A2, A3) :- event_subject(see, A0), mod(neg, see), property(short, A2), property(fence, A3).
+coref(A6, A2) :- event_subject(offer, A0), event_related(offer, A1), event_subject(harvest, A2), event_object(harvest, A3), event_object(harvest, A4), event_subject(feel, A6), property(tired, A6).
+coref(A6, A0) :- event_subject(offer, A0), event_related(offer, A1), event_subject(harvest, A2), event_object(harvest, A3), event_object(harvest, A4), event_subject(feel, A6), property(energetic, A6).
+coref(A5, A1) :- event_subject(speak, A0), event_subject(go, A1), event_object(go, A2), event_subject(hear, A3), event_object(hear, A5), property(low, A5).
+coref(A3, A0) :- event_subject(pass, A0), event_object(pass, A1), event_object(pass, A2), event_subject(drive, A3).
+coref(A5, A2) :- event_subject(speak, A0), event_subject(go, A1), event_object(go, A2), event_subject(hear, A3), event_object(hear, A5), property(loud, A5).
+event_subject(pass, andrea).
+event_object(pass, susan).
+event_subject(see, target_pronoun).
+event_object(see, strip).
+property(duster, andrea).
 
 
 
 
-Clingo yield a non-handled error {'filename': '-', 'lineno': 18, 'char_beg': 1, 'char_end': 116, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:18:1-116: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 18 and column 1-116'}
+Clingo yield a non-handled error {'filename': '-', 'lineno': 5, 'char_beg': 1, 'char_end': 123, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:5:1-123: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 5 and column 1-123'}

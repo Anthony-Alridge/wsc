@@ -1,6 +1,8 @@
 from enum import Enum
 import spacy
 from spacy import symbols
+import neuralcoref
+from collections import Counter
 
 class ModelSize(Enum):
     SMALL = 1
@@ -15,15 +17,23 @@ size_to_model_name = {
 # Spacy does not provide a symbol for dative, retrieve it's id here instead.
 dative = spacy.strings.get_string_id('dative')
 
+
 class SemanticExtraction:
     def __init__(self, model_size = ModelSize.LARGE, token_replacement={}):
         model_name = size_to_model_name[model_size]
         self.model = spacy.load(model_name)
+        self.model.add_pipe(neuralcoref.NeuralCoref(self.model.vocab), name='neuralcoref')
         self.token_replacement = token_replacement
+        self.counter = Counter()
+        self.span_to_id = {}
+
+    def next_id(self, word):
+        self.counter.update([word])
+        return f'{word}_{self.counter[word]}'
 
     def _normalise(self, token):
         lemmatised_token = token.lemma_
-        return self.token_replacement.get(lemmatised_token) or lemmatised_token.lower()
+        return self.span_to_id.get(token) or self.token_replacement.get(lemmatised_token) or lemmatised_token.lower()
 
     """
     Return all matches in tokens which have the given dep.
@@ -59,7 +69,7 @@ class SemanticExtraction:
         return matches
 
     def find_prep_objects(self, token):
-        prep_objects = self.match_dep(token.children, [symbols.prep])
+        prep_objects = self.match_dep(token.children, [symbols.prep, symbols.agent])
         for prep_object in prep_objects:
             objects = self.match_dep(prep_object.children, [symbols.pobj])
             return objects
@@ -75,30 +85,52 @@ class SemanticExtraction:
             current = current.head
         return None
 
+    def find_related_subject(self, token):
+        current = token.head
+        while current:
+            subject = self.match_dep(current.children, [symbols.nsubj, symbols.nsubjpass,])
+            if len(subject) == 1:
+                return subject[0]
+            if current == current.head:
+                return None
+            current = current.head
+        return None
+
     def extract_events(self, tokens):
         events = []
         verbs = self.match_pos(tokens, [symbols.VERB])
         for verb in verbs:
+            new_events = []
+            id = self.next_id(verb.lemma_)
+            self.span_to_id[verb] = id
+            if verb.dep in [symbols.acl]:
+                new_events.append(Event(Event.SUBJECT, [id, self._normalise(verb.head)]))
+                print(Event(Event.SUBJECT, [id, self._normalise(verb.head)]))
             children = verb.children
             # Finding subject
-            subject = self.match_dep(verb.children, [symbols.nsubj, symbols.nsubjpass])
+            subject = self.match_dep(verb.children, [symbols.nsubj, symbols.nsubjpass,])
             if len(subject) == 1:
-                events.append(Event(Event.SUBJECT, [verb.lemma_, self._normalise(subject[0])]))
+                new_events.append(Event(Event.SUBJECT, [id, self._normalise(subject[0])]))
             # Finding direct object
             objects = self.match_dep(verb.children, [symbols.dobj, dative])
             prep_objects = self.find_prep_objects(verb)
             for object in objects:
                 prep_objects.extend(self.find_prep_objects(object))
-                events.append(Event(Event.OBJECT, [verb.lemma_, self._normalise(object)]))
+                new_events.append(Event(Event.OBJECT, [id, self._normalise(object)]))
             for object in prep_objects:
-                events.append(Event(Event.OBJECT, [verb.lemma_, self._normalise(object)]))
+                new_events.append(Event(Event.OBJECT, [id, self._normalise(object)]))
             # Finding related events. This can occur when a verb is the open clausal
             # complement of another. E.g., He wanted to lift the box, lift is the open clausal complement of wanted.
-            if (verb.dep == symbols.xcomp):
+            if verb.dep in [symbols.xcomp, symbols.ccomp]:
                 parent = self.find_parent_verb(verb)
                 if parent:
-                    events.append(Event(Event.RELATED, [parent.lemma_, verb.lemma_]))
-
+                    new_events.append(Event(Event.RELATED, [parent.lemma_, id]))
+                subject = self.find_related_subject(verb)
+                if subject:
+                    new_events.append(Event(Event.SUBJECT, [id, self._normalise(subject)]))
+            if new_events:
+                events.append(Event(Event.ID, [verb.lemma_, id]))
+                events.extend(new_events)
         return events
 
     def extract_modifiers(self, tokens):
@@ -129,11 +161,16 @@ class SemanticExtraction:
         properties = []
         properties += self.match_branch(tokens, symbols.nsubj, symbols.acomp)
         properties += self.match_branch(tokens, symbols.nsubj, symbols.attr)
+        properties += self.match_branch(tokens, symbols.nsubj, symbols.advmod, connecting_node=symbols.VERB)
         properties += self.match_branch(tokens, symbols.nsubj, symbols.dobj, connecting_node=symbols.AUX)
         # Finding prepositional objects not linked to events.
         for token in tokens:
             if token.pos == symbols.VERB:
                 continue
+            # get id for this, and replace 
+            props = self.match_dep(token.children, [symbols.amod])
+            for property in props:
+                properties.append(Property(self._normalise(property), [self._normalise(token)]))
             objects = self.find_prep_objects(token)
             for object in objects:
                 if token.pos == symbols.AUX:
@@ -141,17 +178,20 @@ class SemanticExtraction:
                     if len(subj) == 1:
                         properties.append(Property(self._normalise(object), [self._normalise(subj[0])]))
                 else:
-                    properties.append(Property(self._normalise(object), [self._normalise(object)]))
+                    properties.append(Property(self._normalise(object), [self._normalise(token)]))
         return properties
 
     def extract_all(self, sentence):
         doc = self.model(sentence)
-        return self.extract_events(doc) + self.extract_modifiers(doc) + self.extract_properties(doc)
+        resolved_doc = self.model(doc._.coref_resolved)
+        self.span_to_id = {}
+        return self.extract_events(resolved_doc) + self.extract_modifiers(resolved_doc) + self.extract_properties(resolved_doc)
 
 class Predicate:
     def __init__(self, name, args):
         self.name = name
         self.args = [a.lower() for a in args]
+        self.all_args = args + [name]
 
 
 class Nominal:
@@ -161,11 +201,13 @@ class Event:
     SUBJECT = 'event_subject'
     OBJECT = 'event_object'
     RELATED = 'event_related'
+    ID = 'event'
 
     def __init__(self, event_predicate_type, args):
         self.event_predicate_type = event_predicate_type
         self.name = args[0]
         self.args = args[1:]
+        self.all_args = args
 
     def __eq__(self, other):
         return isinstance(other, Event) \
@@ -175,12 +217,26 @@ class Event:
     def __repr__(self):
         return f'{self.event_predicate_type}({self.name}, {", ".join(self.args)})'
 
+    def get_relevant_args(self):
+        if self.event_predicate_type == Event.ID:
+            return [('entity_event', arg) for arg in self.args]
+        if self.event_predicate_type == Event.RELATED:
+            all_args = [self.name] + self.args
+            return [('entity_event', arg) for arg in all_args]
+        return [('entity_event', self.name)] + [('entity', arg) for arg in self.args]
+
     def grounded(self):
         return f'{self.event_predicate_type}({self.name}, {", ".join(self.args)}).'
 
     def ungrounded(self, arg_to_var):
+        newargs = [arg_to_var[arg] for _, arg in self.get_relevant_args()]
+        if self.event_predicate_type == Event.ID:
+            return f'{self.event_predicate_type}({self.name}, {", ".join(newargs)})'
+        return f'{self.event_predicate_type}({", ".join(newargs)})'
+
+    def unground_with_name(self, arg_to_var, new_name):
         newargs = [arg_to_var[arg] for arg in self.args]
-        return f'{self.event_predicate_type}({self.name}, {", ".join(newargs)})'
+        return f'{self.event_predicate_type}({new_name}, {", ".join(newargs)})'
 
 class Modifier(Predicate):
     def __init__(self, modifier_name, args):
@@ -194,11 +250,16 @@ class Modifier(Predicate):
     def __repr__(self):
         return f'Mod({self.name}, {", ".join(self.args)})'
 
+    def get_relevant_args(self):
+        get_pred = lambda x: 'entity_event' if 'nom' in x else 'event'
+        return [(get_pred(arg), arg) for arg in self.args]
+
     def grounded(self):
         return f'mod({self.name}, {", ".join(self.args)}).'
 
     def ungrounded(self, arg_to_var):
-        return self.grounded().strip('.')
+        newargs = [arg_to_var[arg] for arg in self.args]
+        return f'mod({self.name}, {", ".join(newargs)})'
 
 class Property(Predicate):
     def __init__(self, name, args):
@@ -212,9 +273,16 @@ class Property(Predicate):
     def __repr__(self):
         return f'Property({self.name}, {", ".join(self.args)})'
 
+    def get_relevant_args(self):
+        return [('entity', arg) for arg in self.args]
+
     def grounded(self):
         return f'property({self.name}, {", ".join(self.args)}).'
 
     def ungrounded(self, arg_to_var):
         newargs = [arg_to_var[arg] for arg in self.args]
         return f'property({self.name}, {", ".join(newargs)})'
+
+    def unground_with_name(self, arg_to_var, new_name):
+        newargs = [arg_to_var[arg] for arg in self.args]
+        return f'property({new_name}, {", ".join(newargs)})'

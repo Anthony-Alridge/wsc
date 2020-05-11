@@ -1,23 +1,27 @@
 import jsonlines
 from sentence_finder import SentenceFinder
 from semantic_extraction import ModelSize, SemanticExtraction
-from asp_converter import DirectTranslationBuilder, IlaspBuilder
+from asp_converter import DirectTranslationBuilder, IlaspBuilder, ConceptNetTranslation
 import re
 from clingo_runner import AspRunner
+import spacy
 
-PRONOUN_SYMBOL = 'it'
+PRONOUN_SYMBOL = 'target_pronoun'
 SENTENCE = 'sentence'
 CANDIDATE_1 = 'option1'
 CANDIDATE_2 = 'option2'
 ANSWER = 'answer'
 SEMANTIC_PRONOUN_SYMBOL = 'target_pronoun'
 token_replacement_map = {
-    '-PRON-': SEMANTIC_PRONOUN_SYMBOL
+    PRONOUN_SYMBOL: SEMANTIC_PRONOUN_SYMBOL
 }
 models = {
     'DirectTranslation': DirectTranslationBuilder,
     'ILASPTranslation': IlaspBuilder,
+    'ConceptNetTranslation': ConceptNetTranslation,
 }
+
+
 """
 class to solve WSC problems.
 """
@@ -68,14 +72,18 @@ class Solver:
             examples.append((example, predicates))
         test_predicates = self.semantic_extractor.extract_all(test_example.get_sentence())
         try:
-            program = self.program_builder.build(examples, test_predicates)
+            program = self.program_builder.build(examples, test_example, test_predicates)
             members = self.program_runner.run(program)
         except Exception as e: # TODO: Don't use a blanket catch.
             print(f'WARNING: Aborting {test_example.sentence}, due to Error: {e}')
-            return None
+            return None, None
         if len(members) > 1 or len(members) == 0:
-            return None
-        return list(members)[0]
+            return None, None
+        return (list(members)[0], {
+            'sentence': test_example.get_masked_sentence(),
+            'similar_sentences': [self.corpus[i].get_masked_sentence() for i in similar_sentences],
+            'program': program
+        })
 
 class WSCProblem:
     def __init__(self, sentence, candidate_1, candidate_2, answer):
@@ -88,6 +96,10 @@ class WSCProblem:
         return f'{self.sentence} \n CANDIDATE_1: {self.candidate_1} \n' \
             + f'CANDIDATE_2: {self.candidate_2} \n ANSWER: {self.answer} \n'
 
+    '''
+    Return a sentence with the target pronoun masked with PRONOUN_SYMBOL
+    and any simple coreferences resolved.
+    '''
     def get_sentence(self):
         mask = re.compile('_')
         return mask.sub(PRONOUN_SYMBOL, self.sentence)

@@ -1,5 +1,5 @@
 Failed program is: 
-coref(A3, A0) :- event_subject(raise, A0), event_object(raise, A4), event_object(raise, A2), property(responsible, A3), property(fish, A4).
+coref(A3, A0) :- event_subject(raise, A0), event_object(raise, A1), event_object(raise, A2), property(responsible, A3), property(fish, A4).
 coref(A3, A0) :- event_subject(like, A0), event_object(breed, A1), event_related(like, A2), event_subject(find, A3), mod(neg, do).
 coref(A4, A1) :- event_subject(like, A4), event_object(live, A1), event_related(like, A2), event_object(live, A3), property(fancy, A4).
 coref(A2, A1) :- property(deployment, A1), property(year, A1), property(military, A2).
@@ -10,13 +10,9 @@ coref(A3, A1) :- event_subject(learn, A0), event_object(fish, A1), event_related
 coref(A4, A3) :- event_subject(like, A4), event_object(live, A1), event_related(like, A2), event_object(live, A3), property(drab, A4).
 coref(A3, A1) :- event_subject(apply, A0), event_object(apply, A1), mod(neg, car), property(accident, A3).
 coref(A3, A2) :- event_subject(apply, A0), event_object(apply, A1), mod(neg, car), property(storage, A3).
-coref(A1, A2) :- property(healthy, A3), property(clean, A1), property(lake, A2), property(fish, A3), property(pond, A4).
 coref(A3, A1) :- event_subject(bring, A0), event_object(bring, A1), event_object(bring, A2), event_subject(want, A3).
 coref(A3, A0) :- event_subject(bring, A0), event_object(bring, A1), event_object(bring, A2), event_subject(want, A3).
-coref(A9, A8) :- event_subject(go, A9), event_object(learn, A1), event_object(learn, A7), event_related(go, A3), event_subject(reproduce, A9), event_object(reproduce, A5), property(comfortable, A9), property(specie, A7), property(lab, A8), property(target_pronoun, A9).
-coref(A9, A5) :- event_subject(go, A9), event_object(learn, A1), event_object(learn, A7), event_related(go, A3), event_subject(reproduce, A9), event_object(reproduce, A5), property(comfortable, A9), property(specie, A7), property(lab, A8), property(target_pronoun, A9).
-coref(A5, A6) :- event_subject(like, A0), event_object(fish, A1), event_related(like, A4), event_subject(lose, A5), event_object(lose, A4), event_object(lose, A5), property(pond, A6).
-coref(A0, A1) :- property(narrow, A0), property(tank, A1).
+coref(A6, A5) :- event_subject(go, A6), event_object(learn, A7), event_object(learn, A2), event_related(go, A3), event_subject(reproduce, A6), event_object(reproduce, A5), property(comfortable, A6), property(specie, A7), property(lab, A8), property(target_pronoun, A9).
 coref(A5, A1) :- event_subject(like, A0), event_object(fish, A1), event_related(like, A4), event_subject(catch, A5), event_object(catch, A4), event_object(catch, A5), property(pond, A6).
 event_subject(study, scientist).
 event_object(study, specie).
@@ -25,7 +21,7 @@ event_subject(find, that).
 event_object(live, ocean).
 event_related(find, live).
 event_subject(appear, target_pronoun).
-property(fish, fish).
+property(fish, specie).
 
 
 

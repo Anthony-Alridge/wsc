@@ -1,7 +1,6 @@
 Failed program is: 
-coref(A4, A6) :- event_subject(want, A0), event_object(try, A1), event_related(want, A2), event_subject(invite, A4), event_object(invite, A4), event_related(invite, A5), property(natalie, A6).
 coref(A5, A1) :- event_subject(scare, A0), event_object(scare, A1), event_object(jump, A5), event_subject(answer, A5), event_object(answer, A4), event_subject(gasp, A5).
-coref(A3, A0) :- event_subject(knock, A0), event_object(knock, A1), mod(neg, be), property(puzzle, A3), property(barn, A4).
+coref(A3, A0) :- event_subject(knock, A0), event_object(knock, A4), mod(neg, be), property(puzzle, A3), property(barn, A4).
 coref(A4, A0) :- event_subject(knock, A0), event_object(knock, A1), event_subject(deliver, A4), event_object(deliver, A3), property(disappoint, A4).
 coref(A3, A1) :- event_object(lose, A0), event_subject(stumble, A1), event_object(stumble, A2), event_subject(knock, A3), event_object(knock, A4).
 coref(A5, A2) :- event_subject(leave, A5), event_object(leave, A1), event_object(leave, A2), event_subject(go, A5), event_subject(please, A5), property(door, A5).
@@ -10,11 +9,10 @@ coref(A5, A3) :- event_subject(decide, A0), event_object(travel, A1), event_rela
 coref(A5, A0) :- event_subject(knock, A0), event_object(knock, A1), event_subject(want, A5), event_object(play, A3), event_related(want, A4), property(upset, A5).
 coref(A3, A2) :- event_subject(shut, A0), event_object(shut, A4), event_object(shut, A2), event_subject(like, A3), event_object(like, A4).
 coref(A3, A0) :- event_subject(shut, A0), event_object(shut, A4), event_object(shut, A2), event_subject(like, A3), event_subject(close, A4).
-coref(A3, A2) :- event_subject(invite, A0), event_object(invite, A1), mod(neg, robert), property(ugly, A3), property(girl, A4).
+coref(A3, A2) :- event_subject(invite, A0), event_object(invite, A4), mod(neg, robert), property(ugly, A3), property(girl, A4).
 coref(A2, A0) :- event_subject(buy, A0), event_object(buy, A1), event_subject(show, A2), event_object(put, A3), event_related(show, A4).
-coref(A2, A0) :- event_subject(knock, A0), event_object(knock, A1), property(afraid, A2), property(fear, A3), property(hand, A4).
-coref(A3, A0) :- event_subject(invite, A0), event_object(invite, A1), mod(neg, robert), property(attractive, A3), property(girl, A4).
-coref(A3, A6) :- event_subject(sit, A0), event_subject(ask, A3), event_object(ask, A3), event_object(close, A3), event_related(ask, A4), property(door, A5), property(jennifer, A6).
+coref(A2, A0) :- event_subject(knock, A0), event_object(knock, A1), property(afraid, A2), property(fear, A4), property(hand, A4).
+coref(A3, A0) :- event_subject(invite, A0), event_object(invite, A4), mod(neg, robert), property(attractive, A3), property(girl, A4).
 event_subject(knock, jane).
 event_object(knock, door).
 event_subject(answer, susan).
@@ -26,4 +24,4 @@ event_related(invite, come).
 
 
 
-Clingo yield a non-handled error {'filename': '-', 'lineno': 12, 'char_beg': 1, 'char_end': 128, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:12:1-128: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 12 and column 1-128'}
+Clingo yield a non-handled error {'filename': '-', 'lineno': 11, 'char_beg': 1, 'char_end': 128, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:11:1-128: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 11 and column 1-128'}

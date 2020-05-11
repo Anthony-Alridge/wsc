@@ -1,37 +1,37 @@
 Failed program is: 
-coref(A3, A1) :- event_subject(go, A0), event_object(see, A1), event_object(see, A2), event_subject(see, A3), event_object(see, A4), mod(neg, see), property(arthritis, A6).
-coref(A4, A0) :- event_subject(want, A0), event_object(sell, A1), event_object(sell, A2), event_related(want, A3), event_subject(need, A4), event_object(need, A5).
-coref(A7, A1) :- event_subject(like, A0), event_object(play, A1), event_object(play, A2), event_related(like, A6), event_subject(like, A7), event_object(play, A5), event_related(like, A6), property(quiet, A7).
-coref(A0, A3) :- event_subject(get, A0), event_object(get, A1), event_object(get, A5), property(driver, A3), property(rachel, A4), property(ticket, A5).
-coref(A6, A4) :- event_subject(like, A0), event_object(play, A1), event_related(like, A5), event_subject(like, A6), event_object(play, A4), event_related(like, A5), property(loud, A6).
-coref(A3, A0) :- event_subject(love, A0), event_object(go, A1), event_related(love, A2), event_subject(buy, A3), event_object(buy, A4), event_object(see, A5), mod(neg, do).
-coref(A2, A1) :- mod(neg, be), property(free, A1), property(busy, A2), property(time, A3), property(party, A4).
-coref(A9, A6) :- event_subject(advise, A0), event_object(advise, A1), event_object(play, A2), event_related(advise, A7), event_subject(limit, A9), event_object(limit, A9), event_object(limit, A6), mod(neg, play), mod(neg, fall), property(dry, A9).
-coref(A2, A1) :- event_object(see, A0), mod(neg, carrie), property(eager, A2), property(talent, A3), property(sarah, A4).
-coref(A5, A1) :- event_subject(give, A0), event_object(give, A1), event_subject(damage, A2), event_object(damage, A3), event_subject(get, A5), event_object(see, A5), event_object(see, A6), event_related(get, A7), mod(neg, get).
-coref(A9, A2) :- event_subject(advise, A0), event_object(advise, A1), event_object(play, A2), event_related(advise, A7), event_subject(limit, A9), event_object(limit, A9), event_object(limit, A6), mod(neg, play), mod(neg, fall), property(wet, A9).
-coref(A6, A0) :- event_object(eat, A0), event_object(want, A1), event_subject(think, A6), event_object(think, A3), mod(neg, want), property(eager, A6), property(delicious, A6).
-coref(A6, A1) :- event_object(eat, A0), event_object(want, A1), event_subject(think, A6), event_object(think, A3), mod(neg, want), property(eager, A6), property(gross, A6).
-coref(A3, A1) :- event_subject(give, A0), event_object(give, A1), event_object(give, A2), event_subject(have, A3), event_object(have, A4).
-coref(A5, A0) :- event_subject(like, A0), event_object(play, A1), event_related(like, A2), event_subject(find, A5), mod(neg, kyle), property(familiar, A5).
-coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(give, A2), event_related(ask, A3), mod(neg, be), property(eager, A5).
-coref(A3, A0) :- event_subject(give, A0), event_object(give, A1), event_object(give, A2), event_subject(have, A3), event_object(have, A4).
-coref(A5, A7) :- event_subject(want, A0), event_object(want, A5), event_object(wear, A2), event_object(wear, A7), event_related(want, A4), event_subject(like, A5), property(blue, A6), property(makeup, A7).
-coref(A3, A0) :- event_subject(get, A0), event_object(get, A1), event_object(get, A6), event_subject(drive, A3), event_object(drive, A4), mod(neg, drive), property(ticket, A6).
-coref(A2, A5) :- event_subject(favor, A0), event_object(favor, A1), event_subject(like, A2), event_object(play, A3), event_related(like, A4), mod(neg, christopher).
-coref(A5, A4) :- event_subject(like, A0), event_object(play, A1), event_related(like, A2), event_subject(find, A5), mod(neg, kyle), property(foreign, A5).
-event_subject(get, george).
-event_object(get, ticket).
-event_object(get, play).
-event_subject(give, target_pronoun).
-event_object(give, target_pronoun).
-event_object(give, to).
-event_object(see, target_pronoun).
-event_related(give, see).
-mod(neg, be).
-property(eager, target_pronoun).
+coref(A3, A2) :- event_subject(steal, A0), event_object(steal, A4), event_object(steal, A2), event_subject(ask, A3), event_object(ask, A4).
+coref(A4, A0) :- event_subject(want, A0), event_object(want, A1), event_object(pass, A2), event_related(want, A3), event_subject(block, A4).
+coref(A2, A3) :- event_object(pass, A4), event_object(pass, A1), property(able, A2), property(discipline, A3), property(class, A4).
+coref(A4, A2) :- event_subject(want, A0), event_object(want, A1), event_object(pass, A2), event_related(want, A3), property(open, A4).
+coref(A0, A3) :- event_subject(want, A0), event_object(improve, A1), event_related(want, A2), mod(neg, steven), mod(neg, want), property(open, A5), property(makeover, A6).
+coref(A3, A0) :- event_subject(steal, A0), event_object(steal, A4), event_object(steal, A2), event_subject(give, A3), event_object(give, A4).
+coref(A4, A5) :- mod(neg, on), property(open, A5), property(open, A4), property(wednesday, A4), property(the, A4), property(wednesday, A5).
+coref(A7, A5) :- event_subject(pass, A0), event_object(pass, A1), event_subject(take, A7), event_object(take, A3), event_object(study, A4), mod(neg, rachel), mod(neg, take), property(easy, A7).
+coref(A4, A3) :- event_object(pass, A5), event_object(pass, A1), event_object(pass, A2), property(unable, A3), property(unprepared, A4), property(job, A5).
+coref(A4, A1) :- event_object(pass, A5), event_object(pass, A1), event_object(pass, A2), property(unable, A3), property(prepare, A4), property(job, A5).
+coref(A5, A2) :- event_subject(decide, A0), event_object(pass, A1), event_object(pass, A2), event_related(decide, A3), event_subject(die, A5), event_object(work, A5), event_related(die, A6).
+coref(A5, A0) :- event_subject(decide, A0), event_object(pass, A1), event_object(pass, A2), event_related(decide, A3), event_object(work, A5), property(tired, A5).
+coref(A4, A3) :- event_subject(prevent, A0), event_object(prevent, A1), event_object(pass, A4), event_object(pass, A3), property(player, A4).
+coref(A3, A2) :- event_subject(follow, A0), event_object(follow, A1), event_object(avoid, A2), event_subject(like, A3), event_related(like, A4), event_object(throw, A5), mod(neg, like).
+coref(A4, A0) :- event_subject(ask, A0), event_object(ask, A1), event_object(pass, A2), event_related(ask, A3), event_subject(think, A4), property(bland, A5).
+coref(A4, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(pass, A2), event_related(ask, A3), event_subject(think, A4), event_subject(season, A5).
+coref(A4, A0) :- event_subject(pass, A0), event_object(pass, A1), mod(neg, pass), property(that, A3), property(something, A4).
+coref(A4, A5) :- event_subject(need, A0), event_object(open, A5), event_object(open, A2), event_related(need, A3), event_subject(expire, A4), property(hood, A5).
+coref(A4, A1) :- event_subject(want, A0), event_object(open, A1), event_object(open, A2), event_related(want, A3), property(large, A4).
+coref(A4, A2) :- event_subject(want, A0), event_object(open, A1), event_object(open, A2), event_related(want, A3), property(small, A4).
+coref(A0, A4) :- event_subject(want, A0), event_object(improve, A1), event_related(want, A2), mod(neg, steven), property(open, A4), property(makeover, A5).
+coref(A2, A0) :- event_object(pass, A0), property(hard, A2), property(order, A2).
+coref(A4, A3) :- event_subject(pass, A0), event_object(pass, A1), mod(neg, pass), property(that, A3), property(nothing, A4).
+coref(A3, A0) :- event_subject(hand, A0), event_object(hand, A1), event_object(hand, A2), event_subject(want, A3), event_object(pass, A4), event_related(want, A5).
+coref(A4, A2) :- event_object(go, A0), event_object(make, A1), event_object(make, A2), mod(neg, ryan), property(dancer, A4).
+coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_object(crack, A2), event_related(ask, A3), mod(neg, kyle), property(strong, A5).
+event_subject(pass, emma).
+event_object(pass, ball).
+event_object(pass, janie).
+mod(neg, pass).
+property(open, target_pronoun).
 
 
 
 
-Clingo yield a non-handled error {'filename': '-', 'lineno': 9, 'char_beg': 1, 'char_end': 122, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:9:1-122: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 9 and column 1-122'}
+Clingo yield a non-handled error {'filename': '-', 'lineno': 5, 'char_beg': 1, 'char_end': 172, 'level': 'error', 'message': 'unsafe variables in:', 'text': '-:5:1-172: error: unsafe variables in:', 'human message': 'unsafe variables in in file - at line 5 and column 1-172'}

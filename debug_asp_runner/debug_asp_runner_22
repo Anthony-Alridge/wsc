@@ -6,17 +6,16 @@ coref(A4, A3) :- event_subject(like, A0), event_object(play, A1), event_related(
 coref(A4, A1) :- event_subject(like, A0), event_object(play, A1), event_related(like, A2), event_object(play, A3), property(bright, A4), property(color, A5).
 coref(A4, A0) :- event_subject(try, A0), event_object(communicate, A1), event_related(try, A2), event_object(get, A3), property(luck, A4).
 coref(A1, A0) :- event_subject(think, A0), event_subject(believe, A1), property(lucky, A2).
-coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_subject(check, A5), event_object(check, A3), event_object(check, A7), event_subject(look, A5), mod(neg, look), property(milk, A7).
+coref(A5, A1) :- event_subject(ask, A0), event_object(ask, A1), event_subject(check, A5), event_object(check, A7), event_object(check, A4), event_subject(look, A5), mod(neg, look), property(milk, A7).
 coref(A2, A1) :- event_object(compare, A0), property(able, A1), property(money, A2).
-coref(A5, A0) :- event_subject(ask, A0), event_object(ask, A1), event_subject(check, A5), event_object(check, A3), event_object(check, A7), event_subject(look, A5), mod(neg, look), property(milk, A7).
-coref(A6, A3) :- event_subject(have, A0), event_object(have, A4), event_object(have, A9), event_subject(have, A3), event_object(have, A4), event_object(have, A10), event_subject(take, A6), event_object(take, A7), event_object(take, A11), property(gambling, A9), property(luck, A10), property(chip, A11).
-coref(A6, A0) :- event_subject(have, A0), event_object(have, A4), event_object(have, A10), event_subject(have, A3), event_object(have, A4), event_object(have, A11), event_subject(take, A6), event_object(take, A7), event_object(take, A12), event_related(take, A9), property(gambling, A10), property(luck, A11), property(chip, A12).
-coref(A3, A2) :- event_object(cope, A0), property(better, A2), property(able, A2), property(network, A3), property(mother, A4).
+coref(A5, A0) :- event_subject(ask, A0), event_object(ask, A1), event_subject(check, A5), event_object(check, A7), event_object(check, A4), event_subject(look, A5), mod(neg, look), property(milk, A7).
+coref(A6, A3) :- event_subject(have, A0), event_object(have, A10), event_object(have, A2), event_subject(have, A3), event_object(have, A10), event_object(have, A5), event_subject(take, A6), event_object(take, A11), event_object(take, A8), property(gambling, A10), property(luck, A10), property(chip, A11).
+coref(A6, A0) :- event_subject(have, A0), event_object(have, A11), event_object(have, A2), event_subject(have, A3), event_object(have, A11), event_object(have, A5), event_subject(take, A6), event_object(take, A12), event_object(take, A8), event_related(take, A9), property(gambling, A11), property(luck, A11), property(chip, A12).
+coref(A3, A2) :- event_object(cope, A4), property(better, A2), property(able, A2), property(network, A3), property(mother, A4).
 coref(A3, A2) :- event_subject(run, A0), event_object(play, A1), mod(neg, shoe), property(boring, A3).
-coref(A5, A7) :- event_subject(come, A5), event_object(come, A3), event_subject(suffer, A2), event_object(suffer, A3), event_object(suffer, A7), property(luck, A5), property(life, A6), property(brian, A7).
+coref(A5, A4) :- event_subject(come, A5), event_object(come, A7), event_subject(suffer, A2), event_object(suffer, A7), event_object(suffer, A4), property(luck, A5), property(life, A7), property(brian, A7).
 coref(A6, A3) :- event_subject(stop, A0), event_object(play, A1), event_related(stop, A5), event_subject(keep, A3), event_object(play, A4), event_related(keep, A5), property(fine, A6).
-coref(A1, A8) :- event_subject(reach, A0), event_subject(spend, A1), event_object(spend, A2), event_object(play, A7), event_related(spend, A4), mod(neg, reach), property(level, A6), property(game, A7), property(logan, A8).
-coref(A1, A0) :- event_subject(reach, A0), event_subject(spend, A1), event_object(spend, A2), event_object(play, A7), event_related(spend, A4), mod(neg, reach), property(level, A6), property(game, A7), property(logan, A8).
+coref(A1, A0) :- event_subject(reach, A0), event_subject(spend, A1), event_object(spend, A2), event_object(play, A8), event_related(spend, A4), mod(neg, reach), property(level, A6), property(game, A7), property(logan, A8).
 coref(A4, A0) :- event_subject(go, A0), event_object(ask, A1), event_subject(borrow, A4), event_object(borrow, A3), event_subject(run, A4).
 coref(A3, A1) :- event_subject(go, A3), event_object(throw, A1), event_object(do, A2), property(loud, A3).
 coref(A3, A1) :- event_subject(run, A0), event_object(play, A1), mod(neg, shoe), property(interesting, A3).
@@ -29,7 +28,7 @@ event_object(have, run).
 event_object(have, luck).
 event_subject(win, target_pronoun).
 mod(neg, have).
-property(luck, luck).
+property(luck, run).
 
 
 
