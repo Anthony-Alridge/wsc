@@ -216,10 +216,10 @@
 {"qID": "F8G9WFLO5Y88J8A1CF1TPRUTUWUS2O-2", "sentence": "Beth didn't get angry with Sally, who had cut her off, because _ stopped and apologized.", "option1": "Sally", "option2": "Beth", "answer": "1"}
 {"qID": "D7ZXC0BJ1YDYMTSDRIYUB8JYXWY52B-1", "sentence": "Jim signaled the barman and gestured toward _ empty glass", "option1": "Jim", "option2": "The barman", "answer": "1"}
 {"qID": "56YC9MKHD95TAJHEGAOYS27LHE23CU-2", "sentence": "Jim signaled the barman and gestured toward _ bathroom key.", "option1": "The barman", "option2": "Jim", "answer": "1"}
-{"qID": "D4S7FR4IVQQ2MNEPSMRLDRONYYT8GC-1", "sentence": "Dan took the rear seat while Bill claimed the front because _ \"Dibs!\" was slow.", "option1": "Dan", "option2": "Bill", "answer": "1"}
-{"qID": "3YSZVIJAL5J1T4QWR4S4J20EVRELH5-2", "sentence": "Dan took the rear seat while Bill claimed the front because _ \"Dibs!\" was quicker.", "option1": "Bill", "option2": "Dan", "answer": "1"}
-{"qID": "6DCX8WZ13FVBT8YMZHKFPTJ9TJXOT2-1", "sentence": "Tom said \"Check\" to Ralph as he moved _ bishop.", "option1": "Tom", "option2": "Ralph", "answer": "1"}
-{"qID": "RKJ2SJOSG2OORSXJYAGKBFC9TMW3DY-2", "sentence": "Tom said \"Check\" to Ralph as he took _ bishop.", "option1": "Ralph", "option2": "Tom", "answer": "1"}
+{"qID": "D4S7FR4IVQQ2MNEPSMRLDRONYYT8GC-1", "sentence": "Dan took the rear seat while Bill claimed the front because _ Dibs! was slow.", "option1": "Dan", "option2": "Bill", "answer": "1"}
+{"qID": "3YSZVIJAL5J1T4QWR4S4J20EVRELH5-2", "sentence": "Dan took the rear seat while Bill claimed the front because _ Dibs! was quicker.", "option1": "Bill", "option2": "Dan", "answer": "1"}
+{"qID": "6DCX8WZ13FVBT8YMZHKFPTJ9TJXOT2-1", "sentence": "Tom said Check to Ralph as he moved _ bishop.", "option1": "Tom", "option2": "Ralph", "answer": "1"}
+{"qID": "RKJ2SJOSG2OORSXJYAGKBFC9TMW3DY-2", "sentence": "Tom said Check to Ralph as he took _ bishop.", "option1": "Ralph", "option2": "Tom", "answer": "1"}
 {"qID": "FCHB3B84J1HPJSTF21C6SX4ID2KRKV-1", "sentence": "As Andrea in the crop duster passed over Susan, _ could see the landing strip.", "option1": "Andrea", "option2": "Susan", "answer": "1"}
 {"qID": "NN4IT7KPINDUKTB43O6KUCA160E4FO-2", "sentence": "As Andrea in the crop duster passed over Susan, _ could see the landing gear.", "option1": "Susan", "option2": "Andrea", "answer": "1"}
 {"qID": "JHO8T4JZBV1U0HPSTNMNYDB617YQE2-1", "sentence": "Tom gave Ralph a lift to school so _ wouldn't have to drive alone.", "option1": "Tom", "option2": "Ralph", "answer": "1"}
@@ -242,7 +242,7 @@
 {"qID": "VBZFBFPI9HSZI4YI73MQTQYGEISJNI-2", "sentence": "As Ollie carried Tommy up the long winding steps, _ legs dangled.", "option1": "Tommy", "option2": "Ollie", "answer": "1"}
 {"qID": "PJS9213J8BYCMV501XDMH6EJ5SF8R0-1", "sentence": "The father carried the sleeping boy in _ arms", "option1": "The father", "option2": "The boy", "answer": "1"}
 {"qID": "9LANJ6C3EO3GCSR6Q6IZ8B556EWQO4-2", "sentence": "The father carried the sleeping boy in _ bassinet.", "option1": "The boy", "option2": "The father", "answer": "1"}
-{"qID": "ZZOF1XOHD9FDNLAQ6B9EC0K11MJLIF-1", "sentence": "The woman held the girl against _chest", "option1": "The woman", "option2": "The girl", "answer": "1"}
+{"qID": "ZZOF1XOHD9FDNLAQ6B9EC0K11MJLIF-1", "sentence": "The woman held the girl against _ chest", "option1": "The woman", "option2": "The girl", "answer": "1"}
 {"qID": "3Q8SBU7IE4WPU92IW741A2F0ZGOYPR-2", "sentence": "The woman held the girl against _ will.", "option1": "The girl", "option2": "The woman", "answer": "1"}
 {"qID": "E5MZQMVP3S92FEKUPUE4UEWLI2QPPV-1", "sentence": "Pam's parents came home and found her having sex with her boyfriend, Paul. _ were furious about it.", "option1": "Pam's parents", "option2": "Pam and Paul", "answer": "1"}
 {"qID": "ULZP140BKH2P8PR5AJ5357HDQJGBAV-2", "sentence": "Pam's parents came home and found her having sex with her boyfriend, Paul. _ were embarrassed about it.", "option1": "Pam and Paul", "option2": "Pam's parents", "answer": "1"}

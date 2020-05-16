@@ -1,15 +1,10 @@
 coref(target_pronoun, Y) :- property(P, target_pronoun), property(P, Y), Y != target_pronoun.
 coref(target_pronoun, Y) :- event_subject(E, target_pronoun), event_subject(E, Y), Y != target_pronoun.
-coref(target_pronoun, Y) :- event_object(E, target_pronoun), event_object(E, Y), Y != target_pronoun.event(believe, believe_2).
-event_subject(believe_2, carol).
-event(regret, regret_1).
-event_subject(regret_1, rebecca).
-event_related(believe, regret_1).
-event_subject(regret_1, carol).
-event(steal, steal_6).
-event_subject(steal_6, rebecca).
-event_object(steal_6, watch).
-event_related(regret, steal_6).
-event_subject(steal_6, rebecca).
-property(small, V1) :- event_object(V0, V1).
-property(big, V1) :- event_subject(V0, V1).
+coref(target_pronoun, Y) :- event_object(E, target_pronoun), event_object(E, Y), Y != target_pronoun.event(ask, ask_2).
+event_subject(ask_2, james).
+event_object(ask_2, robert).
+event_object(ask_2, favor).
+event(refuse, refuse_3).
+event_subject(refuse_3, target_pronoun).
+event_subject(V0, V2) :- event(pay, V0), event_object(V1, V2).
+event_subject(V0, V2) :- event(owe, V0), event(ask, V1), event_object(V1, V2).

@@ -3,7 +3,7 @@ from wsc_solver import WSCProblem
 import jsonlines
 
 filename = 'data/debugging.jsonl'
-semantic_extractor = SemanticExtraction(model_size=ModelSize.SMALL)
+semantic_extractor = SemanticExtraction(model_size=ModelSize.LARGE)
 data = []
 SENTENCE = 'sentence'
 CANDIDATE_1 = 'option1'

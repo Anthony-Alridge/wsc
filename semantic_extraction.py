@@ -16,6 +16,7 @@ size_to_model_name = {
 
 # Spacy does not provide a symbol for dative, retrieve it's id here instead.
 dative = spacy.strings.get_string_id('dative')
+compound = spacy.strings.get_string_id('compound')
 
 
 class SemanticExtraction:
@@ -62,20 +63,19 @@ class SemanticExtraction:
     """
     def match(self, match_transform, to_match, tokens, return_transform = None):
         matches = []
-        i = 0
         for token in tokens:
-            i += 1
+            # print(f'{token.text} has dep: {token.dep_}')
             if match_transform(token) in to_match:
                 matched = token if return_transform is None else return_transform(token)
                 matches.append(matched)
         return matches
 
     def find_prep_objects(self, token):
-        prep_objects = self.match_dep(token.children, [symbols.prep, symbols.agent])
+        prep_objects = self.match_dep(token.children, [symbols.prep, symbols.agent, dative])
+        objects = []
         for prep_object in prep_objects:
-            objects = self.match_dep(prep_object.children, [symbols.pobj])
-            return objects
-        return []
+            objects.extend(self.match_dep(prep_object.children, [symbols.pobj]))
+        return objects
 
     def find_parent_verb(self, token):
         current = token.head
@@ -107,7 +107,6 @@ class SemanticExtraction:
             self.span_to_id[verb] = id
             if verb.dep in [symbols.acl]:
                 new_events.append(Event(Event.SUBJECT, [id, self._normalise(verb.head)]))
-                print(Event(Event.SUBJECT, [id, self._normalise(verb.head)]))
             children = verb.children
             # Finding subject
             subject = self.match_dep(verb.children, [symbols.nsubj, symbols.nsubjpass,])
@@ -118,6 +117,9 @@ class SemanticExtraction:
             prep_objects = self.find_prep_objects(verb)
             for object in objects:
                 prep_objects.extend(self.find_prep_objects(object))
+                compounds = self.match_dep(object.children, [compound])
+                if len(compounds) == 1:
+                    new_events.append(Event(Event.OBJECT, [id, self._normalise(compounds[0])]))
                 new_events.append(Event(Event.OBJECT, [id, self._normalise(object)]))
             for object in prep_objects:
                 new_events.append(Event(Event.OBJECT, [id, self._normalise(object)]))

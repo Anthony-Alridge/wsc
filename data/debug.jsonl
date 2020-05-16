@@ -47,7 +47,26 @@ any predicates from groups
 ###
 body:
 #######################################all predicates from problem, with entities generalised
+{
+  event_object(give_1, rest). property(hungry, target_pronoun).
+  event_subject(give_1, tanya). event_object(give_1, to).
+  event(give, give_1). event_object(give_1, spinach).
+  property(spinach, rest). event_object(give_1, dinner).
+   entity(to). entity(tanya). entity(dinner). entity(rest).
+   entity(target_pronoun). entity(spinach). entity_event(give_1).}
 
 
 ###
 ######################################################contains coref is goal
+{"qID": "1MAFW2FM4G8IZWS0UNEUOXSUVE8GZI-1", "sentence": "George got free tickets to the play, but he gave them to Eric, even though _ was particularly eager to see it.", "option1": "George", "option2": "Eric", "answer": "1"}
+{"qID": "V0PI571FXDT0YD5P8HLAS4JIUMX2TF-2", "sentence": "George got free tickets to the play, but he gave them to Eric, because _ was particularly eager to see it.", "option1": "Eric", "option2": "George", "answer": "1"}
+{"qID": "V8M97F4IDO0KR95YK15JYXMTGZFGWW-1", "sentence": "George got free tickets to the play, but he gave them to Eric, because _ was not particularly eager to see it.", "option1": "George", "option2": "Eric", "answer": "1"}
+{"qID": "57Q46A8JIJEW4FFN45JBC2FD5SPZG2-2", "sentence": "Jane gave Joan candy because _ wasn't hungry.", "option1": "Jane", "option2": "Joan", "answer": "1"}
+{"qID": "9GD8J7EL7YJS9WPFI1L5FBHC18DRFH-1", "sentence": "Jane gave Joan candy because _ was hungry.", "option1": "Joan", "option2": "Jane", "answer": "1"}
+{"qID": "S5RXREJG6A6DDCVCJ4L9JUR5NM7RBV-2", "sentence": "James asked Robert for a favor but _ was refused.", "option1": "James", "option2": "Robert", "answer": "1"}
+{"qID": "BFBTP6FGTGJH2A3VFQQWGL5GPMIA8B-1", "sentence": "James asked Robert for a favor but _ refused.", "option1": "Robert", "option2": "James", "answer": "1"}
+{"qID": "EMONKCOVTZAKLBEW51KQ2EE6VO4834-1", "sentence": "Susan knew that Ann's son had been in a car accident, so _ told her about it.", "option1": "Susan", "option2": "Ann", "answer": "1"}
+{"qID": "NTMKX1SU7M1P91NRW374OAQLST401K-2", "sentence": "Susan knew that Ann's son had been in a car accident, because _ told her about it.", "option1": "Ann", "option2": "Susan", "answer": "1"}
+{"qID": "3T2Q37STGCQG6S3Q6516G1KWRXGQXA-2", "sentence": "Ann asked Mary what time the library closes, but _ had forgotten.", "option1": "Mary", "option2": "Ann", "answer": "1"}
+{"qID": "073HW1P9VER8VBC77A3EHHPN7EILUO-1", "sentence": "Fred is the only man still alive who remembers my great-grandfather. _ is a remarkable man.", "option1": "Fred", "option2": "My great-grandfather", "answer": "1"}
+{"qID": "XUDEJNLYI1S71Q949PPUL7XKNIAF9E-2", "sentence": "Fred is the only man still alive who remembers my great-grandfather. _ was a remarkable man.", "option1": "My great-grandfather", "option2": "Fred", "answer": "1"}

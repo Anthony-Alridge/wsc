@@ -102,8 +102,20 @@ class WSCProblem:
     and any simple coreferences resolved.
     '''
     def get_sentence(self):
+        # Replace the underscore before the candidates, as masking candidates
+        # will possibly reintroduce underscores.
         mask = re.compile('_')
-        return mask.sub(PRONOUN_SYMBOL, self.sentence)
+        sentence = mask.sub(PRONOUN_SYMBOL, self.sentence)
+        sentence = self._mask_candidate(sentence, self.candidate_1)
+        sentence = self._mask_candidate(sentence, self.candidate_2)
+        return sentence
+
+    def _mask_candidate(self, sentence, c):
+        stopwords = []
+        words_in_c = c.split(' ')
+        c = [word for word in words_in_c if word not in stopwords]
+        mask = re.compile(' '.join(c))
+        return mask.sub('_'.join(c), sentence)
 
     def get_masked_sentence(self):
         mask = re.compile(f'{self.candidate_1}|{self.candidate_2}')

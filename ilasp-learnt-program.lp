@@ -1,2 +1,2 @@
-property(small, V1) :- event_object(V0, V1).
-property(big, V1) :- event_subject(V0, V1).
+event_subject(V0, V2) :- event(pay, V0), event_object(V1, V2).
+event_subject(V0, V2) :- event(owe, V0), event(ask, V1), event_object(V1, V2).
