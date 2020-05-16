@@ -1,7 +1,7 @@
-from clyngor import solve
+import clyngor
 import shutil
 import os
-
+clyngor.CLINGO_BIN_PATH = 'lib/clingo'
 class AspRunner:
     debug_filename = 'debug_asp_runner'
     def __init__(self):
@@ -14,7 +14,7 @@ class AspRunner:
 
     def run(self, program):
         try:
-            self.models = solve(inline=program)
+            self.models = clyngor.solve(inline=program)
             coreferences = set([r for answer in self.models.by_predicate for r in map(lambda args: args[1], answer.get('coref') or [])])
         except SystemError as e:
             debug_file = f'{self.debug_filename}_{str(self.errors)}'

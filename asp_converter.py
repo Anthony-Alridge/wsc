@@ -129,7 +129,7 @@ class IlaspBuilder:
         program = self.build_ilasp_program(examples)
         problem_facts = self.encode_problem(test)
         filename = 'tmp-ilasp-translation.lp'
-        ilasp_command = ['ILASP', '--clingo5', '-q', '--version=2i', f'{filename}']
+        ilasp_command = ['lib/ILASP', '--clingo5', '--clingo', "lib/clingo", '-q', '--version=2i', f'{filename}']
         with open(filename, 'w') as f:
             f.write(program)
         # run with subprocess, build entities again, add ilasp program and facts from test
