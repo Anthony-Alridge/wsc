@@ -77,6 +77,7 @@ class Solver:
         except Exception as e: # TODO: Don't use a blanket catch.
             print(f'WARNING: Aborting {test_example.sentence}, due to Error: {e}')
             return None, None
+        members = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
         if len(members) > 1 or len(members) == 0:
             return None, None
         return (list(members)[0], {

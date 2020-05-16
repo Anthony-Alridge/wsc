@@ -33,6 +33,8 @@ class SemanticExtraction:
 
     def _normalise(self, token):
         lemmatised_token = token.lemma_
+        if lemmatised_token == '-PRON-':
+            lemmatised_token = token.text
         return self.span_to_id.get(token) or self.token_replacement.get(lemmatised_token) or lemmatised_token.lower()
 
     """
@@ -167,7 +169,7 @@ class SemanticExtraction:
         for token in tokens:
             if token.pos == symbols.VERB:
                 continue
-            # get id for this, and replace 
+            # get id for this, and replace
             props = self.match_dep(token.children, [symbols.amod])
             for property in props:
                 properties.append(Property(self._normalise(property), [self._normalise(token)]))
@@ -183,10 +185,24 @@ class SemanticExtraction:
 
     def extract_all(self, sentence):
         doc = self.model(sentence)
-        resolved_doc = self.model(doc._.coref_resolved)
+        resolved_doc = self.model(self.get_resolved(doc))
         self.span_to_id = {}
         return self.extract_events(resolved_doc) + self.extract_modifiers(resolved_doc) + self.extract_properties(resolved_doc)
 
+    # Modified from https://github.com/huggingface/neuralcoref/blob/633aeade988505306f484e966e62f5d9a2d4364d/neuralcoref/neuralcoref.pyx#L262
+    def get_resolved(self, doc):
+        clusters = doc._.coref_clusters
+        ''' Return a list of utterrances text where the coref are resolved to the most representative mention'''
+        resolved = list(tok.text_with_ws for tok in doc)
+        resolved_pos = list(tok.pos for tok in doc)
+        resolved_pos_ = list(tok.pos_ for tok in doc)
+        for cluster in clusters:
+            for coref in cluster:
+                if coref != cluster.main and resolved_pos[coref.start] in [symbols.PRON, symbols.DET]:
+                    resolved[coref.start] = cluster.main.text + doc[coref.end-1].whitespace_
+                    for i in range(coref.start+1, coref.end):
+                        resolved[i] = ""
+        return ''.join(resolved)
 class Predicate:
     def __init__(self, name, args):
         self.name = name

@@ -4,8 +4,6 @@
     # Note: at some stage will need to alter the candidates to replace with c1, c2 placeholders.
     # need to judge what symbol to put in replacement map ... remove stop words, use noun phrases ?
 from semantic_extraction import Modifier, Property, Event
-import subprocess
-import os
 from spacy import symbols
 import spacy
 from operator import itemgetter
@@ -14,6 +12,9 @@ import queue
 import time
 import json
 from collections import Counter
+import os
+import signal
+from subprocess import Popen, PIPE, TimeoutExpired
 
 model = spacy.load('en_core_web_sm')
 
@@ -98,12 +99,14 @@ class IlaspBuilder:
             #     group_name = f'g{group}'
             #     head_bias.extend([f'#modeh(abnormal_group({group_name}, {p.ungrounded(arg_to_var)})).' for p in predicates])
             #     background.extend([f'{p.unground_with_name(arg_to_var, group_name)} :- {p.ungrounded(arg_to_var)}, group({group_name}), not abnormal_group({group_name}, {p.ungrounded(arg_to_var)}).' for p in predicates if not isinstance(p, Modifier)])
-            ctx = ' '.join([p.grounded() for p in predicates]) + ' ' + ' '.join(entities)
-            positive_examples.append(self.create_example(True, i, f'coref({self.pronoun_symbol}, {example.get_correct_candidate()})', ctx))
-            negative_examples.append(self.create_example(False, i, f'coref({self.pronoun_symbol}, {example.get_incorrect_candidate()})', ctx))
+            ctx = ' '.join(list(set([p.grounded() for p in predicates]))) + ' ' + ' '.join(list(set(entities)))
+            correct_candidate = '_'.join(example.get_correct_candidate().split(' '))
+            incorrect_candidate = '_'.join(example.get_incorrect_candidate().split(' '))
+            positive_examples.append(self.create_example(True, i, f'coref({self.pronoun_symbol}, {correct_candidate})', ctx))
+            negative_examples.append(self.create_example(False, i, f'coref({self.pronoun_symbol}, {incorrect_candidate})', ctx))
         for p in predicate_counts:
             body_bias.append(f'#modeb({predicate_counts[p]}, {p}, (anti_reflexive)).')
-        program = '\n'.join(background + head_bias + list(set(body_bias)) + positive_examples + negative_examples)
+        program = '\n'.join(background + list(set(head_bias)) + list(set(body_bias)) + positive_examples + negative_examples)
         if self.debug:
             with open('ilasp-translation.lp', 'w') as f:
                 f.write(program)
@@ -112,26 +115,38 @@ class IlaspBuilder:
     def encode_problem(self, predicates):
         return '\n'.join([p.grounded() for p in predicates])
 
+    def run_with_timeout(self, command, timeout):
+        with Popen(command, stdout=PIPE, preexec_fn=os.setsid) as process:
+            try:
+                output = process.communicate(timeout=timeout)[0].decode('utf-8')
+            except TimeoutExpired:
+                os.killpg(process.pid, signal.SIGINT) # send signal to the process group
+                output = '' # process.communicate()[0]
+        return output
+
     def build(self, examples, unused_test_details, test):
-        timeout = 1
+        timeout = 200
         program = self.build_ilasp_program(examples)
         problem_facts = self.encode_problem(test)
         filename = 'tmp-ilasp-translation.lp'
-        ilasp_command = f'ILASP --clingo5 -q --version=2i {filename}'
+        ilasp_command = ['ILASP', '--clingo5', '-q', '--version=2i', f'{filename}']
         with open(filename, 'w') as f:
             f.write(program)
         # run with subprocess, build entities again, add ilasp program and facts from test
-        output = subprocess.check_output(ilasp_command, shell=True, encoding='utf-8')
-        if self.debug:
-            with open('ilasp-learnt-program.lp', 'w') as f:
-                f.write(output)
-            with open('ilasp-full-program.lp', 'w') as f:
-                f.write(problem_facts + '\n' + output)
-        os.remove(filename)
+        output = self.run_with_timeout(ilasp_command, timeout)# subprocess.check_output(ilasp_command, encoding='utf-8', timeout=timeout)
+        print(output)
+        if 'UNSATISFIABLE' in output:
+            output = ''
         background = []
         background.append(f'coref({self.pronoun_symbol}, Y) :- property(P, {self.pronoun_symbol}), property(P, Y), Y != {self.pronoun_symbol}.')
         background.append(f'coref({self.pronoun_symbol}, Y) :- event_subject(E, {self.pronoun_symbol}), event_subject(E, Y), Y != {self.pronoun_symbol}.')
         background.append(f'coref({self.pronoun_symbol}, Y) :- event_object(E, {self.pronoun_symbol}), event_object(E, Y), Y != {self.pronoun_symbol}.')
+        if self.debug:
+            with open('ilasp-learnt-program.lp', 'w') as f:
+                f.write(output)
+            with open('ilasp-full-program.lp', 'w') as f:
+                f.write('\n'.join(background) + problem_facts + '\n' + output)
+        os.remove(filename)
         return '\n'.join(background) + '\n' + problem_facts + '\n' + output
 
 class SeekableFile:
