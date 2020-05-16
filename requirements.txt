@@ -22,7 +22,6 @@ murmurhash==1.0.2
 -e git+https://github.com/huggingface/neuralcoref.git@73d07e97fe6a6997a97fde16cdfb959e688c280f#egg=neuralcoref
 numpy==1.18.1
 packaging==20.3
-pkg-resources==0.0.0
 plac==0.9.6
 pluggy==0.13.1
 preshed==3.0.2
