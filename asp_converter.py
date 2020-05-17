@@ -84,9 +84,13 @@ class IlaspBuilder:
         #     group_name = f'g{group}'
         #     background.append(f'group({group_name}).')
         body_bias.append('#bias("no_constraint.").')
+        include_mod_bias = True
+        body_bias.append('#bias(":- head(event_subject(_, _)), not body(mod(_)).").')
         predicate_counts = Counter()
         for i, (example, predicates) in enumerate(examples):
             counts_for_example = Counter()
+            has_mod =  [mod for mod in predicates if isinstance(mod, Modifier) and not mod.args]
+            include_mod_bias = has_mod and include_mod_bias
             args = [arg for p in predicates for arg in p.get_relevant_args()]
             arg_to_var = {arg_name: f'var({pred_name})' for pred_name, arg_name in args}
             entities = [f'{pred_name}({arg_name}).' for pred_name, arg_name in args]

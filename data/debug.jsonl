@@ -57,6 +57,22 @@ body:
 
 
 ###
+coref(target_pronoun, Y) :- property(P, target_pronoun), property(P, Y), Y != target_pronoun.
+coref(target_pronoun, Y) :- event_subject(E, target_pronoun), event_subject(E, Y), Y != target_pronoun.
+coref(target_pronoun, Y) :- event_object(E, target_pronoun), event_object(E, Y), Y != target_pronoun.
+event(give, give_3).
+event_subject(give_3, jane).
+event_object(give_3, joan).
+event_object(give_3, candy).
+mod(neg, property(hungry, target_pronoun)).
+property(hungry, target_pronoun).
+property(hungry, V1) :- event_object(V0, V1).
+
+:- not mod(neg, hungry).
+entity(jane).
+entity(joan).
+mod(neg, property(hungry, Z)) :- not property(hungry, Z), entity(Z).
+
 ######################################################contains coref is goal
 {"qID": "1MAFW2FM4G8IZWS0UNEUOXSUVE8GZI-1", "sentence": "George got free tickets to the play, but he gave them to Eric, even though _ was particularly eager to see it.", "option1": "George", "option2": "Eric", "answer": "1"}
 {"qID": "V0PI571FXDT0YD5P8HLAS4JIUMX2TF-2", "sentence": "George got free tickets to the play, but he gave them to Eric, because _ was particularly eager to see it.", "option1": "Eric", "option2": "George", "answer": "1"}
@@ -67,6 +83,5 @@ body:
 {"qID": "BFBTP6FGTGJH2A3VFQQWGL5GPMIA8B-1", "sentence": "James asked Robert for a favor but _ refused.", "option1": "Robert", "option2": "James", "answer": "1"}
 {"qID": "EMONKCOVTZAKLBEW51KQ2EE6VO4834-1", "sentence": "Susan knew that Ann's son had been in a car accident, so _ told her about it.", "option1": "Susan", "option2": "Ann", "answer": "1"}
 {"qID": "NTMKX1SU7M1P91NRW374OAQLST401K-2", "sentence": "Susan knew that Ann's son had been in a car accident, because _ told her about it.", "option1": "Ann", "option2": "Susan", "answer": "1"}
-{"qID": "3T2Q37STGCQG6S3Q6516G1KWRXGQXA-2", "sentence": "Ann asked Mary what time the library closes, but _ had forgotten.", "option1": "Mary", "option2": "Ann", "answer": "1"}
 {"qID": "073HW1P9VER8VBC77A3EHHPN7EILUO-1", "sentence": "Fred is the only man still alive who remembers my great-grandfather. _ is a remarkable man.", "option1": "Fred", "option2": "My great-grandfather", "answer": "1"}
 {"qID": "XUDEJNLYI1S71Q949PPUL7XKNIAF9E-2", "sentence": "Fred is the only man still alive who remembers my great-grandfather. _ was a remarkable man.", "option1": "My great-grandfather", "option2": "Fred", "answer": "1"}

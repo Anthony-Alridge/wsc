@@ -138,11 +138,15 @@ class SemanticExtraction:
         return events
 
     def extract_modifiers(self, tokens):
-        return self.match(
+        conjuncts = []
+        for token in tokens:
+            if token.text in ['because', 'but', 'so', 'though'] and token.pos in [symbols.CCONJ, symbols.SCONJ]:
+                conjuncts.append(Modifier(token.text, []))
+        return conjuncts + self.match(
             lambda token: token.dep,
             [symbols.neg],
             tokens,
-            lambda token: Modifier('neg', [self._normalise(token.head)])
+            lambda token: Modifier('neg', [self._normalise(tokens[token.i + 1])])
             )
 
     def match_branch(self, tokens, left_branch, right_branch, connecting_node=None):
@@ -266,18 +270,25 @@ class Modifier(Predicate):
             and self.args == other.args
 
     def __repr__(self):
-        return f'Mod({self.name}, {", ".join(self.args)})'
+        if self.args:
+            print(self.args)
+            return f'Mod({self.name}, {", ".join(self.args)})'
+        return f'Mod({self.name})'
 
     def get_relevant_args(self):
         get_pred = lambda x: 'entity_event' if 'nom' in x else 'event'
         return [(get_pred(arg), arg) for arg in self.args]
 
     def grounded(self):
-        return f'mod({self.name}, {", ".join(self.args)}).'
+        if self.args:
+            return f'mod({self.name}, {", ".join(self.args)}).'
+        return f'mod({self.name}).'
 
     def ungrounded(self, arg_to_var):
-        newargs = [arg_to_var[arg] for arg in self.args]
-        return f'mod({self.name}, {", ".join(newargs)})'
+        if self.args:
+            newargs = [arg_to_var[arg] for arg in self.args]
+            return f'mod({self.name}, {", ".join(newargs)})'
+        return f'mod({self.name})'
 
 class Property(Predicate):
     def __init__(self, name, args):
