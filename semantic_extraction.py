@@ -139,9 +139,9 @@ class SemanticExtraction:
 
     def extract_modifiers(self, tokens):
         conjuncts = []
-        for token in tokens:
-            if token.text in ['because', 'but', 'so', 'though'] and token.pos in [symbols.CCONJ, symbols.SCONJ]:
-                conjuncts.append(Modifier(token.text, []))
+        # for token in tokens:
+        #     if token.text in ['because', 'but', 'so', 'though'] and token.pos in [symbols.CCONJ, symbols.SCONJ]:
+        #         conjuncts.append(Modifier(token.text, []))
         return conjuncts + self.match(
             lambda token: token.dep,
             [symbols.neg],

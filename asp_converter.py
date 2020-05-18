@@ -85,7 +85,7 @@ class IlaspBuilder:
         #     background.append(f'group({group_name}).')
         body_bias.append('#bias("no_constraint.").')
         include_mod_bias = True
-        body_bias.append('#bias(":- head(event_subject(_, _)), not body(mod(_)).").')
+        #body_bias.append('#bias(":- head(event_subject(_, _)), not body(mod(_)).").')
         predicate_counts = Counter()
         for i, (example, predicates) in enumerate(examples):
             counts_for_example = Counter()
