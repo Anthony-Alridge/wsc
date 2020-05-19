@@ -66,19 +66,25 @@ class Solver:
                 print(f'Found similar sentence: {self.corpus[sentence_idx].sentence}')
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
             print()
+        test_predicates = self.semantic_extractor.extract_all(test_example.get_sentence())
+        answer = []
+        answer_found = False
         for sentence_idx in similar_sentences:
             example = self.corpus[sentence_idx]
             predicates = self.semantic_extractor.extract_all(example.get_sentence())
             examples.append((example, predicates))
-        test_predicates = self.semantic_extractor.extract_all(test_example.get_sentence())
-        try:
-            program = self.program_builder.build(examples, test_example, test_predicates)
-            members = self.program_runner.run(program)
-        except Exception as e: # TODO: Don't use a blanket catch.
-            print(f'WARNING: Aborting {test_example.sentence}, due to Error: {e}')
-            return None, None
-        members = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
-        if len(members) > 1 or len(members) == 0:
+            try:
+                program = self.program_builder.build([(example, predicates)], test_example, test_predicates)
+                members = self.program_runner.run(program)
+                members = [' '.join(m.split('_')) for m in members]
+                answer = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
+                if len(answer) == 1:
+                    answer_found = True
+                    break # An answer has been found, return it.
+            except Exception as e: # TODO: Don't use a blanket catch.
+                print(f'WARNING: Aborting {test_example.sentence} -> {example.sentence}, \n due to Error: {e}')
+                continue
+        if not answer_found:
             return None, None
         return (list(members)[0], {
             'sentence': test_example.get_masked_sentence(),
