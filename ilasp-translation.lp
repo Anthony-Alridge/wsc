@@ -2,12 +2,13 @@ coref(target_pronoun, Y) :- property(P, target_pronoun), property(P, Y), Y != ta
 coref(target_pronoun, Y) :- event_subject(E, target_pronoun), event_subject(E, Y), Y != target_pronoun.
 coref(target_pronoun, Y) :- event_object(E, target_pronoun), event_object(E, Y), Y != target_pronoun.
 #modeh(event_subject(var(entity_event), var(entity))).
-#modeb(2, event_subject(var(entity_event), var(entity)), (anti_reflexive)).
 #bias("no_constraint.").
-#modeb(1, event(believe, var(entity_event)), (anti_reflexive)).
-#modeb(1, event(think, var(entity_event)), (anti_reflexive)).
-#modeb(1, property(fake, var(entity)), (anti_reflexive)).
-#modeb(1, property(felicia, var(entity)), (anti_reflexive)).
-#modeb(1, property(wonderful, var(entity)), (anti_reflexive)).
-#pos(p0, {coref(target_pronoun, felicia)}, {}, {event(think, think_26). event_subject(think_26, cynthia). property(wonderful, scenario). property(fake, scenario). event(believe, believe_8). event_subject(believe_8, target_pronoun). property(felicia, scenario). entity(target_pronoun). entity_event(believe_8). entity(scenario). entity(cynthia). entity_event(think_26).}).
-#neg(n0, {coref(target_pronoun, cynthia)}, {}, {event(think, think_26). event_subject(think_26, cynthia). property(wonderful, scenario). property(fake, scenario). event(believe, believe_8). event_subject(believe_8, target_pronoun). property(felicia, scenario). entity(target_pronoun). entity_event(believe_8). entity(scenario). entity(cynthia). entity_event(think_26).}).
+#modeb(1, property(other, var(entity)), (anti_reflexive)).
+#modeb(1, property(angry, var(entity)), (anti_reflexive)).
+#modeb(1, property(person, var(entity)), (anti_reflexive)).
+#modeb(1, event_subject(var(entity_event), var(entity)), (anti_reflexive)).
+#modeb(1, property(hunter, var(entity)), (anti_reflexive)).
+#modeb(2, event_object(var(entity_event), var(entity)), (anti_reflexive)).
+#modeb(1, event(steal, var(entity_event)), (anti_reflexive)).
+#pos(p0, {coref(target_pronoun, hunter)}, {}, {event_object(steal_11, person). property(hunter, angry). property(angry, brett). property(other, person). event_object(steal_11, shoe). property(person, shoe). event_subject(steal_11, target_pronoun). event(steal, steal_11). entity(brett). entity(target_pronoun). entity(shoe). entity(person). entity_event(steal_11). entity(angry).}).
+#neg(n0, {coref(target_pronoun, brett)}, {}, {event_object(steal_11, person). property(hunter, angry). property(angry, brett). property(other, person). event_object(steal_11, shoe). property(person, shoe). event_subject(steal_11, target_pronoun). event(steal, steal_11). entity(brett). entity(target_pronoun). entity(shoe). entity(person). entity_event(steal_11). entity(angry).}).

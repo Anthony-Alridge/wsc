@@ -20,13 +20,14 @@ compound = spacy.strings.get_string_id('compound')
 
 
 class SemanticExtraction:
-    def __init__(self, model_size = ModelSize.LARGE, token_replacement={}):
+    def __init__(self, model_size = ModelSize.LARGE, token_replacement={}, use_event_id=True):
         model_name = size_to_model_name[model_size]
         self.model = spacy.load(model_name)
         self.model.add_pipe(neuralcoref.NeuralCoref(self.model.vocab), name='neuralcoref')
         self.token_replacement = token_replacement
         self.counter = Counter()
         self.span_to_id = {}
+        self.use_event_id = use_event_id
 
     def next_id(self, word):
         self.counter.update([word])
@@ -36,8 +37,9 @@ class SemanticExtraction:
         lemmatised_token = token.lemma_
         if lemmatised_token == '-PRON-':
             lemmatised_token = token.text
-        return self.span_to_id.get(token) or self.token_replacement.get(lemmatised_token) or lemmatised_token.lower()
-
+        if self.use_event_id:
+            return self.span_to_id.get(token) or self.token_replacement.get(lemmatised_token) or lemmatised_token.lower()
+        return self.token_replacement.get(lemmatised_token) or lemmatised_token.lower()
     """
     Return all matches in tokens which have the given dep.
     In other words, for all the arcs in tokens labelled with dep, returns
@@ -105,6 +107,7 @@ class SemanticExtraction:
             new_events = []
             id = self.next_id(verb.lemma_)
             self.span_to_id[verb] = id
+            id = self._normalise(verb)
             if verb.dep in [symbols.acl]:
                 new_events.append(Event(Event.SUBJECT, [id, self._normalise(verb.head)]))
             children = verb.children
@@ -133,7 +136,8 @@ class SemanticExtraction:
                 if subject:
                     new_events.append(Event(Event.SUBJECT, [id, self._normalise(subject)]))
             if new_events:
-                events.append(Event(Event.ID, [verb.lemma_, id]))
+                if self.use_event_id:
+                    events.append(Event(Event.ID, [verb.lemma_, id]))
                 events.extend(new_events)
         return events
 

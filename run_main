@@ -1,2 +1,2 @@
 #!/bin/bash
-python main.py --train_path '/home/anthony/wsc/data/train_xl.jsonl' --test_path '/home/anthony/wsc/data/wsc273.jsonl' -d --model_name='ILASPTranslation' --ne=4
+python main.py --train_path '/home/anthony/wsc/data/train_xl.jsonl' --test_path '/home/anthony/wsc/data/wsc273.jsonl' -d --model_name='ConceptNetTranslation' --ne=1

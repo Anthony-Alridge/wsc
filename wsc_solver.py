@@ -5,6 +5,7 @@ from asp_converter import DirectTranslationBuilder, IlaspBuilder, ConceptNetTran
 import re
 from clingo_runner import AspRunner
 import spacy
+from statistics import mean
 
 PRONOUN_SYMBOL = 'target_pronoun'
 SENTENCE = 'sentence'
@@ -35,9 +36,11 @@ class Solver:
         self.corpus = self._load_corpus(corpus_filename)
         sentences = [example.get_masked_sentence() for example in self.corpus]
         self.sentence_finder = SentenceFinder(sentences, k=num_examples_per_input)
-        self.semantic_extractor = SemanticExtraction(model_size = model_size, token_replacement=token_replacement_map)
+        use_event_id = False if model_name == 'ConceptNetTranslation' else True
+        self.semantic_extractor = SemanticExtraction(model_size = model_size, token_replacement=token_replacement_map, use_event_id=use_event_id)
         self.debug = debug
         self.program_runner = AspRunner()
+        self.times = []
         assert model_name in models, f'Unknown model specified. Choose one of {models.keys()}'
         self.program_builder = models[model_name](SEMANTIC_PRONOUN_SYMBOL, debug=debug)
 
@@ -74,9 +77,11 @@ class Solver:
             predicates = self.semantic_extractor.extract_all(example.get_sentence())
             examples.append((example, predicates))
             try:
-                program = self.program_builder.build([(example, predicates)], test_example, test_predicates)
+                program, time = self.program_builder.build([(example, predicates)], test_example, test_predicates)
+                self.times.append(time)
                 members = self.program_runner.run(program)
                 members = [' '.join(m.split('_')) for m in members]
+                print(members)
                 answer = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
                 if len(answer) == 1:
                     answer_found = True
@@ -84,6 +89,7 @@ class Solver:
             except Exception as e: # TODO: Don't use a blanket catch.
                 print(f'WARNING: Aborting {test_example.sentence} -> {example.sentence}, \n due to Error: {e}')
                 continue
+        print(f'Average time is {mean(self.times)}')
         if not answer_found:
             return None, None
         return (list(members)[0], {

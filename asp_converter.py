@@ -215,7 +215,7 @@ class ConceptNetTranslation:
             return None
         if not self._find_node_if_present(start) and not self._find_node_if_present(goal):
             return None
-        return self._bfs(start, goal, set(), [], 0)
+        return self._dfs(start, goal, set(), [], 0)
 
     def _bfs(self, current, goal, visited, path, depth):
         waiting = queue.Queue()
@@ -294,11 +294,14 @@ class ConceptNetTranslation:
         starting = self.get_relevant_predicates(test_predicates, candidates)
         end = self.get_relevant_predicates(test_predicates, [self.pronoun_symbol])
         rules = set()
+        a = time.perf_counter()
         for s in starting:
             for e in end:
                 path = self.find_path_if_it_exists(s, e)
                 if path is None: continue
                 rules = rules | set(self._path_to_rules(path))
+        b = time.perf_counter()
+        time_taken = b - a
         rules.add(f'coref({self.pronoun_symbol}, Y) :- property(P, {self.pronoun_symbol}), property(P, Y), Y != {self.pronoun_symbol}.')
         rules.add(f'coref({self.pronoun_symbol}, Y) :- event_subject(E, {self.pronoun_symbol}), event_subject(E, Y), Y != {self.pronoun_symbol}.')
         rules.add(f'coref({self.pronoun_symbol}, Y) :- event_object(E, {self.pronoun_symbol}), event_object(E, Y), Y != {self.pronoun_symbol}.')
@@ -307,4 +310,4 @@ class ConceptNetTranslation:
         if self.debug:
             with open('concept_net_program.lp', 'w') as writer:
                 writer.write(program)
-        return program
+        return program, time_taken

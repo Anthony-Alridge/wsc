@@ -13,6 +13,7 @@ class AspRunner:
             #shutil.rmtree(self.debug_filename)
 
     def run(self, program):
+        print(program)
         try:
             self.models = clyngor.solve(inline=program)
             coreferences = set([r for answer in self.models.by_predicate for r in map(lambda args: args[1], answer.get('coref') or [])])
