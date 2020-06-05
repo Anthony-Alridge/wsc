@@ -41,7 +41,9 @@ class Solver:
         self.debug = debug
         self.program_runner = AspRunner()
         self.times = []
+        self.errors = 0
         assert model_name in models, f'Unknown model specified. Choose one of {models.keys()}'
+        self.model_name = model_name
         self.program_builder = models[model_name](SEMANTIC_PRONOUN_SYMBOL, debug=debug)
 
     def _load_corpus(self, filename):
@@ -55,44 +57,63 @@ class Solver:
                     line[ANSWER]))
         return data
 
-    def solve(self, test_example):
-        test_example = WSCProblem(
-            test_example[SENTENCE],
-            test_example[CANDIDATE_1],
-            test_example[CANDIDATE_2],
-            test_example[ANSWER])
+    def iterative_solve(self, test_example, test_predicates):
+        answer_found = False
+        answer = []
+        program = ''
+        similar_sentences = self.get_background(test_example)
+        for sentence_idx in similar_sentences:
+            example = self.corpus[sentence_idx]
+            predicates = self.semantic_extractor.extract_all(example.get_sentence())
+            answer_found, answer, program = self.build_and_run([(example, predicates)], test_example, test_predicates)
+            if answer_found:
+                return answer_found, answer, program
+        return answer_found, answer, program
+
+    def get_background(self, test_example):
         similar_sentences = self.sentence_finder.get(test_example.get_masked_sentence())
-        examples = []
         if self.debug:
             print(f'Solving: {test_example.sentence}')
             for sentence_idx in similar_sentences:
                 print(f'Found similar sentence: {self.corpus[sentence_idx].sentence}')
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
             print()
-        test_predicates = self.semantic_extractor.extract_all(test_example.get_sentence())
+        return similar_sentences
+
+    def build_and_run(self, background, test_example, test_predicates):
         answer = []
-        answer_found = False
-        for sentence_idx in similar_sentences:
-            example = self.corpus[sentence_idx]
-            predicates = self.semantic_extractor.extract_all(example.get_sentence())
-            examples.append((example, predicates))
-            try:
-                program, time = self.program_builder.build([(example, predicates)], test_example, test_predicates)
-                self.times.append(time)
-                members = self.program_runner.run(program)
-                members = [' '.join(m.split('_')) for m in members]
-                print(members)
-                answer = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
-                if len(answer) == 1:
-                    answer_found = True
-                    break # An answer has been found, return it.
-            except Exception as e: # TODO: Don't use a blanket catch.
-                print(f'WARNING: Aborting {test_example.sentence} -> {example.sentence}, \n due to Error: {e}')
-                continue
-        print(f'Average time is {mean(self.times)}')
+        program = ''
+        try:
+            program = self.program_builder.build(background, test_example, test_predicates)
+            members = self.program_runner.run(program)
+            members = [' '.join(m.split('_')) for m in members]
+            answer = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
+        except Exception as e: # TODO: Don't use a blanket catch.
+            print(f'WARNING: Aborting {test_example.sentence} -> {background}, \n due to Error: {e}')
+        return len(answer) == 1, answer, program
+
+    def solve_with_no_background(self, test_example, test_predicates):
+            return self.build_and_run([], test_example, test_predicates)
+
+
+    def solve(self, test_example):
+        test_example = WSCProblem(
+            test_example[SENTENCE],
+            test_example[CANDIDATE_1],
+            test_example[CANDIDATE_2],
+            test_example[ANSWER])
+        test_predicates = self.semantic_extractor.extract_all(test_example.get_sentence())
+        if self.model_name == 'ConceptNetTranslation':
+            answer_found, answer, program = self.solve_with_no_background(test_example, test_predicates)
+        else:
+            answer_found, answer, program = self.iterative_solve(test_example, test_predicates)
+        #print(f'Average time is {mean(self.times)}')
         if not answer_found:
             return None, None
-        return (list(members)[0], {
+        # Get background knowledge used for analysis.
+        similar_sentences = self.get_background(test_example)
+        print(self.errors)
+        return (answer[0], {
             'sentence': test_example.get_masked_sentence(),
             'similar_sentences': [self.corpus[i].get_masked_sentence() for i in similar_sentences],
             'program': program

@@ -12,6 +12,7 @@ def main(train_filename, test_filename, args):
     predictions = []
     target = []
     examples = ''
+    num_correct = 0
     solver = Solver(
         train_filename,
         num_examples_per_input=args.ne,
@@ -31,11 +32,15 @@ def main(train_filename, test_filename, args):
             else:
                 predictions.append(0)
             if args.d and predictions[-1] == int(test_example[ANSWER]):
-                print('Correct')
+                print(f'Correct')
+                num_correct += 1
                 with jsonlines.open('correct_answers.jsonl', 'a') as f:
                     f.write(additional_info)
+    print(num_correct)
     print_performance(predictions, target)
 
+def answer_matches(guess, correct):
+    return guess in correct.lower or guess == '_'.join(correct.split(' ')).lower()
 def print_performance(predictions, target):
     stats = calculate_stats(predictions, target)
     print(f'Total number of examples: {stats["size"]}')
