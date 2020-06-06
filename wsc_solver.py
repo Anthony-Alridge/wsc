@@ -6,6 +6,7 @@ import re
 from clingo_runner import AspRunner
 import spacy
 from statistics import mean
+import traceback
 
 PRONOUN_SYMBOL = 'target_pronoun'
 SENTENCE = 'sentence'
@@ -84,17 +85,19 @@ class Solver:
         answer = []
         program = ''
         try:
-            program = self.program_builder.build(background, test_example, test_predicates)
+            program, p = self.program_builder.build(background, test_example, test_predicates)
+            if p > 0:
+                self.times.append(p)
             members = self.program_runner.run(program)
             members = [' '.join(m.split('_')) for m in members]
             answer = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
         except Exception as e: # TODO: Don't use a blanket catch.
             print(f'WARNING: Aborting {test_example.sentence} -> {background}, \n due to Error: {e}')
+            traceback.print_exc()
         return len(answer) == 1, answer, program
 
     def solve_with_no_background(self, test_example, test_predicates):
             return self.build_and_run([], test_example, test_predicates)
-
 
     def solve(self, test_example):
         test_example = WSCProblem(
@@ -112,7 +115,10 @@ class Solver:
             return None, None
         # Get background knowledge used for analysis.
         similar_sentences = self.get_background(test_example)
-        print(self.errors)
+        if len(self.times) > 0:
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            print(f'AVERAGE PATH LENGTH:  {mean(self.times)}')
+            print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
         return (answer[0], {
             'sentence': test_example.get_masked_sentence(),
             'similar_sentences': [self.corpus[i].get_masked_sentence() for i in similar_sentences],

@@ -218,10 +218,11 @@ class ConceptNetTranslation:
         return self._bfs(start, goal, set(), [], 0)
 
     def _bfs(self, current, goal, visited, path, depth):
-        waiting = queue.Queue()
-        waiting.put((current, [], 0))
+        waiting = []
+        waiting.append((current, [], 0))
+        paths = []
         while waiting:
-            (curr, path, depth) = waiting.get_nowait()
+            (curr, path, depth) = waiting.pop(0)
             #print(f'Depth is {depth}')
             if curr in visited: continue
             visited.add(curr)
@@ -233,8 +234,14 @@ class ConceptNetTranslation:
             for edge in next:
                 next_word, relation = itemgetter('name', 'relation')(edge)
                 if next_word in visited: continue
-                if next_word == goal: return path + [(curr, relation, next_word)]
-                waiting.put_nowait((next_word, path + [(curr, relation, next_word)], depth + 1))
+                if next_word == goal:
+                    paths.append(path + [(curr, relation, next_word)])
+                    if len(paths) > 3: break
+                    continue
+                    #return path + [(curr, relation, next_word)]
+                waiting.append((next_word, path + [(curr, relation, next_word)], depth + 1))
+        if paths:
+            return paths[0]
         return None
 
     def _dfs(self, current, goal, visited, path, depth):
@@ -281,9 +288,9 @@ class ConceptNetTranslation:
                 _, relation, w2 = path[i + 1]
             predicate_w1 = self._get_predicate(w1, relation, 'Y')
             predicate_w2 = self._get_predicate(w2, relation, 'Y')
-            if relation in ['IsA', 'Synonym', 'RelatedTo', 'MannerOf', 'CauseDesire', 'SimilarTo', 'HasProperty']:
+            if relation in ['CapableOf', 'MotivatedByGoal', 'DerivedFrom', 'IsA', 'Synonym', 'RelatedTo', 'MannerOf', 'Desires', 'HasProperty']:
                 rules.add(f'{predicate_w2} :- {predicate_w1}.')
-            elif relation in ['Antonym']:
+            elif relation in ['Antonym', 'ObstructedBy']:
                 rules.add(f'-{predicate_w2} :- {predicate_w1}.')
             else:
                 print(f'Warning. No handler for {relation}.')
@@ -294,12 +301,17 @@ class ConceptNetTranslation:
         starting = self.get_relevant_predicates(test_predicates, candidates)
         end = self.get_relevant_predicates(test_predicates, [self.pronoun_symbol])
         rules = set()
+        a = time.perf_counter()
+        path_length = 0
         for s in starting:
             for e in end:
                 path = self.find_path_if_it_exists(s, e)
-                print(path)
                 if path is None: continue
+                path_length = max(path_length, len(path))
+                #print(f'PATH HAS LENGTH: {len(path)}')
                 rules = rules | set(self._path_to_rules(path))
+        b = time.perf_counter()
+        #print(f'Time taken is {b - a}')
         rules.add(f'coref({self.pronoun_symbol}, Y) :- property(P, {self.pronoun_symbol}), property(P, Y), Y != {self.pronoun_symbol}.')
         rules.add(f'coref({self.pronoun_symbol}, Y) :- event_subject(E, {self.pronoun_symbol}), event_subject(E, Y), Y != {self.pronoun_symbol}.')
         rules.add(f'coref({self.pronoun_symbol}, Y) :- event_object(E, {self.pronoun_symbol}), event_object(E, Y), Y != {self.pronoun_symbol}.')
@@ -308,4 +320,4 @@ class ConceptNetTranslation:
         if self.debug:
             with open('concept_net_program.lp', 'w') as writer:
                 writer.write(program)
-        return program
+        return program, path_length
