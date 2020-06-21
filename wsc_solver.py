@@ -45,7 +45,7 @@ class Solver:
         self.no_path = 0
         self.no_words = 0
         self.errors = 0
-        assert mode in ['batch', 'iterative']: f'Unkown mode specified. Choose one of {batch, iterative}'
+        assert mode in ['batch', 'iterative']: 'Unkown mode specified. Choose one of {batch, iterative}'
         self.mode = mode
         assert model_name in models, f'Unknown model specified. Choose one of {models.keys()}'
         self.model_name = model_name
@@ -61,6 +61,7 @@ class Solver:
                     line[CANDIDATE_2],
                     line[ANSWER]))
         return data
+
     def batch_solve(self, test_example, test_predicates):
         answer_found = False
         answer = []
