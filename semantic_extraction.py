@@ -1,7 +1,7 @@
 from enum import Enum
 import spacy
 from spacy import symbols
-import neuralcoref
+#import neuralcoref
 from collections import Counter
 
 class ModelSize(Enum):
@@ -14,16 +14,15 @@ size_to_model_name = {
     ModelSize.LARGE: 'en_core_web_lg',
 }
 
-# Spacy does not provide a symbol for dative, retrieve it's id here instead.
+# Spacy does not provide a symbol for some items, retrieve it's id here instead.
 dative = spacy.strings.get_string_id('dative')
 compound = spacy.strings.get_string_id('compound')
 
-
+# Translate plain text into it's semantic elements (events and properties)
 class SemanticExtraction:
     def __init__(self, model_size = ModelSize.LARGE, token_replacement={}, use_event_id=True):
         model_name = size_to_model_name[model_size]
         self.model = spacy.load(model_name)
-        self.model.add_pipe(neuralcoref.NeuralCoref(self.model.vocab), name='neuralcoref')
         self.token_replacement = token_replacement
         self.counter = Counter()
         self.span_to_id = {}
@@ -72,6 +71,8 @@ class SemanticExtraction:
                 matches.append(matched)
         return matches
 
+    # Find prepositional objects, linked via an intermediate relation (usually
+    # a preposition)
     def find_prep_objects(self, token):
         prep_objects = self.match_dep(token.children, [symbols.prep, symbols.agent, dative])
         objects = []
@@ -117,6 +118,7 @@ class SemanticExtraction:
                 new_events.append(Event(Event.SUBJECT, [id, self._normalise(subject[0])]))
             # Finding direct object
             objects = self.match_dep(verb.children, [symbols.dobj, dative])
+            # Finding prepositional objects
             prep_objects = self.find_prep_objects(verb)
             for object in objects:
                 prep_objects.extend(self.find_prep_objects(object))
@@ -142,10 +144,6 @@ class SemanticExtraction:
         return events
 
     def extract_modifiers(self, tokens):
-        conjuncts = []
-        # for token in tokens:
-        #     if token.text in ['because', 'but', 'so', 'though'] and token.pos in [symbols.CCONJ, symbols.SCONJ]:
-        #         conjuncts.append(Modifier(token.text, []))
         return conjuncts + self.match(
             lambda token: token.dep,
             [symbols.neg],
@@ -195,33 +193,16 @@ class SemanticExtraction:
 
     def extract_all(self, sentence):
         doc = self.model(sentence)
-        resolved_doc = self.model(self.get_resolved(doc))
+        # Reset id tracker.
         self.span_to_id = {}
-        return self.extract_events(resolved_doc) + self.extract_modifiers(resolved_doc) + self.extract_properties(resolved_doc)
+        return self.extract_events(doc) + self.extract_modifiers(doc) + self.extract_properties(doc)
 
-    # Modified from https://github.com/huggingface/neuralcoref/blob/633aeade988505306f484e966e62f5d9a2d4364d/neuralcoref/neuralcoref.pyx#L262
-    def get_resolved(self, doc):
-        clusters = doc._.coref_clusters
-        ''' Return a list of utterrances text where the coref are resolved to the most representative mention'''
-        resolved = list(tok.text_with_ws for tok in doc)
-        resolved_pos = list(tok.pos for tok in doc)
-        resolved_pos_ = list(tok.pos_ for tok in doc)
-        for cluster in clusters:
-            for coref in cluster:
-                if coref != cluster.main and resolved_pos[coref.start] in [symbols.PRON, symbols.DET]:
-                    resolved[coref.start] = cluster.main.text + doc[coref.end-1].whitespace_
-                    for i in range(coref.start+1, coref.end):
-                        resolved[i] = ""
-        return ''.join(resolved)
 class Predicate:
     def __init__(self, name, args):
         self.name = name
         self.args = [a.lower() for a in args]
         self.all_args = args + [name]
 
-
-class Nominal:
-    pass
 
 class Event:
     SUBJECT = 'event_subject'

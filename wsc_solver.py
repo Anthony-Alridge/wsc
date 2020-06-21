@@ -33,16 +33,20 @@ class Solver:
     corpus_filename: Path to training file in jsonl format.
     num_examples_per_input: Hyperparameter to determine the max number of training examples to use per input.
     """
-    def __init__(self, corpus_filename, num_examples_per_input=1, model_size=ModelSize.LARGE, debug=False, model_name='DirectTranslation'):
+    def __init__(self, corpus_filename, num_examples_per_input=1, model_size=ModelSize.LARGE, debug=False, model_name='DirectTranslation', mode='iterative'):
         self.corpus = self._load_corpus(corpus_filename)
         sentences = [example.get_masked_sentence() for example in self.corpus]
         self.sentence_finder = SentenceFinder(sentences, k=num_examples_per_input)
-        use_event_id = False if model_name == 'ConceptNetTranslation' else True
+        use_event_id = True if model_name == 'ConceptNetTranslation' else True
         self.semantic_extractor = SemanticExtraction(model_size = model_size, token_replacement=token_replacement_map, use_event_id=use_event_id)
         self.debug = debug
         self.program_runner = AspRunner()
         self.times = []
+        self.no_path = 0
+        self.no_words = 0
         self.errors = 0
+        assert mode in ['batch', 'iterative']: f'Unkown mode specified. Choose one of {batch, iterative}'
+        self.mode = mode
         assert model_name in models, f'Unknown model specified. Choose one of {models.keys()}'
         self.model_name = model_name
         self.program_builder = models[model_name](SEMANTIC_PRONOUN_SYMBOL, debug=debug)
@@ -57,6 +61,18 @@ class Solver:
                     line[CANDIDATE_2],
                     line[ANSWER]))
         return data
+    def batch_solve(self, test_example, test_predicates):
+        answer_found = False
+        answer = []
+        program = ''
+        similar_sentences = self.get_background(test_example)
+        background = []
+        for sentence_idx in similar_sentences:
+            example = self.corpus[sentence_idx]
+            predicates = self.semantic_extractor.extract_all(example.get_sentence())
+            background.append((example, predicates))
+        answer_found, answer, program = self.build_and_run(background, test_example, test_predicates)
+        return answer_found, answer, program
 
     def iterative_solve(self, test_example, test_predicates):
         answer_found = False
@@ -81,16 +97,20 @@ class Solver:
             print()
         return similar_sentences
 
+    def has_word(self, word, sentence):
+        return word in sentence
+
     def build_and_run(self, background, test_example, test_predicates):
         answer = []
         program = ''
         try:
-            program, p = self.program_builder.build(background, test_example, test_predicates)
-            if p > 0:
-                self.times.append(p)
+            program  = self.program_builder.build(background, test_example, test_predicates)
             members = self.program_runner.run(program)
             members = [' '.join(m.split('_')) for m in members]
-            answer = [member for member in members if member in test_example.get_correct_candidate() or member in test_example.get_incorrect_candidate()]
+            answer = []
+            for member in members:
+                if self.has_word(member, test_example.get_correct_candidate()) or self.has_word(member, test_example.get_incorrect_candidate()):
+                    answer.append(member)
         except Exception as e: # TODO: Don't use a blanket catch.
             print(f'WARNING: Aborting {test_example.sentence} -> {background}, \n due to Error: {e}')
             traceback.print_exc()
@@ -109,16 +129,14 @@ class Solver:
         if self.model_name == 'ConceptNetTranslation':
             answer_found, answer, program = self.solve_with_no_background(test_example, test_predicates)
         else:
-            answer_found, answer, program = self.iterative_solve(test_example, test_predicates)
-        #print(f'Average time is {mean(self.times)}')
+            if self.mode == 'batch':
+                answer_found, answer, program = self.batch_solve(test_example, test_predicates)
+            else:
+                answer_found, answer, program = self.iterative_solve(test_example, test_predicates)
         if not answer_found:
             return None, None
         # Get background knowledge used for analysis.
         similar_sentences = self.get_background(test_example)
-        if len(self.times) > 0:
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-            print(f'AVERAGE PATH LENGTH:  {mean(self.times)}')
-            print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
         return (answer[0], {
             'sentence': test_example.get_masked_sentence(),
             'similar_sentences': [self.corpus[i].get_masked_sentence() for i in similar_sentences],

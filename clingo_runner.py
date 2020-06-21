@@ -2,6 +2,10 @@ import clyngor
 import shutil
 import os
 clyngor.CLINGO_BIN_PATH = 'lib/clingo'
+
+"""
+Compute the answer sets of a program and return coreferences.
+"""
 class AspRunner:
     debug_filename = 'debug_asp_runner'
     def __init__(self):

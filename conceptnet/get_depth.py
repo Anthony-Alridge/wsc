@@ -41,6 +41,3 @@ def _find_node_if_present(name):
 depths = []
 for word in starting_words:
     depths.append(_bfs(word, set(), 0))
-
-print(max(depths))
-print(min(depths))

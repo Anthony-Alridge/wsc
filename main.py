@@ -17,12 +17,12 @@ def main(train_filename, test_filename, args):
         train_filename,
         num_examples_per_input=args.ne,
         debug=args.d,
-        model_name=args.model_name)
+        model_name=args.model_name,
+        mode=args.mode)
     with jsonlines.open(test_filename) as reader:
         for test_example in reader:
             target.append(int(test_example[ANSWER]))
             answer, additional_info = solver.solve(test_example)
-            print(answer)
             if answer is None:
                 predictions.append(0)
             elif answer in test_example[CANDIDATE_1].lower():
@@ -32,15 +32,10 @@ def main(train_filename, test_filename, args):
             else:
                 predictions.append(0)
             if args.d and predictions[-1] == int(test_example[ANSWER]):
-                print(f'Correct')
-                num_correct += 1
                 with jsonlines.open('correct_answers.jsonl', 'a') as f:
                     f.write(additional_info)
-    print(num_correct)
     print_performance(predictions, target)
 
-def answer_matches(guess, correct):
-    return guess in correct.lower or guess == '_'.join(correct.split(' ')).lower()
 def print_performance(predictions, target):
     stats = calculate_stats(predictions, target)
     print(f'Total number of examples: {stats["size"]}')
@@ -82,8 +77,13 @@ if __name__ == '__main__':
         help='Sets program into debug mode, meaning progress will be saved to files.')
     parser.add_argument(
         '--model_name',
-        default='DirectTranslation',
-        help='The model to use, one of {DirectTranslation, ILASPTranslation}'
+        default='ILASPTranslation',
+        help='The model to use, one of {ConceptNetTranslation, ILASPTranslation}'
+    )
+    parser.add_argument(
+        '--mode',
+        default='iterative',
+        help='The learning mode, one of {batch, iterative}. Only applies to ILASPTranslation'
     )
     args = parser.parse_args()
     main(
