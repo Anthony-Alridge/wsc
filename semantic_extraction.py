@@ -144,7 +144,7 @@ class SemanticExtraction:
         return events
 
     def extract_modifiers(self, tokens):
-        return conjuncts + self.match(
+        return self.match(
             lambda token: token.dep,
             [symbols.neg],
             tokens,

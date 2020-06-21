@@ -1,7 +1,7 @@
 import jsonlines
 from sentence_finder import SentenceFinder
 from semantic_extraction import ModelSize, SemanticExtraction
-from asp_converter import DirectTranslationBuilder, IlaspBuilder, ConceptNetTranslation
+from asp_converter import IlaspBuilder, ConceptNetTranslation
 import re
 from clingo_runner import AspRunner
 import spacy
@@ -18,7 +18,6 @@ token_replacement_map = {
     PRONOUN_SYMBOL: SEMANTIC_PRONOUN_SYMBOL
 }
 models = {
-    'DirectTranslation': DirectTranslationBuilder,
     'ILASPTranslation': IlaspBuilder,
     'ConceptNetTranslation': ConceptNetTranslation,
 }
@@ -45,7 +44,7 @@ class Solver:
         self.no_path = 0
         self.no_words = 0
         self.errors = 0
-        assert mode in ['batch', 'iterative']: 'Unkown mode specified. Choose one of {batch, iterative}'
+        assert mode in ['batch', 'iterative'], 'Unkown mode specified. Choose one of {batch, iterative}'
         self.mode = mode
         assert model_name in models, f'Unknown model specified. Choose one of {models.keys()}'
         self.model_name = model_name
